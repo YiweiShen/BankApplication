@@ -7,7 +7,7 @@ package com.group2.project.bankApp.bean;
  *              String, billerAcctNo as int, amount as double, customerId as int
  **/
 
-public class CustomterBill {
+public class CustomerBill {
 
 	private String billerName; // biller's name
 	private int billerAcctNo; // biller's account number
