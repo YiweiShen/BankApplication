@@ -4,13 +4,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.group2.project.bankApp.bean.Customer;
 import com.group2.project.bankApp.bean.CustomerAcct;
-import com.group2.project.bankApp.bean.Login;
 
 /**
  * @author Chun Ting Yiu, Xutong Chen, Yiwei Shen
@@ -25,32 +23,36 @@ public class CustomerAcctDao {
 		this.template = template;
 	}
 	
-	public int deposit(CustomerAcct c, int i) {
-		String sql = "update customerAccttbl set acctBalance= acctBalance + " + c.getAcctBalance() + " where id=" + i + "";
+	public int deposit(CustomerAcct c, double amount) {
+		String sql = "update customerAcctTbl set acctBalance=" + String.valueOf(c.getAcctBalance()+amount) + " where acctNo=" + c.getAcctNo() + "";
 		return template.update(sql);
 	}
 	
-	public int draw(CustomerAcct c, int i) {
-		String sql = "update customerAccttbl set acctBalance= acctBalance - " + c.getAcctBalance() + " where id=" + i + "";
+	// checking if the balance is sufficient for the withdraw is done in controller
+	public int draw(CustomerAcct c, double amount) {
+		String sql = "update customerAcctTbl set acctBalance=" + String.valueOf(c.getAcctBalance()-amount) + " where acctNo=" + c.getAcctNo() + "";
 		return template.update(sql);
 	}
 	
-	public int transfer(CustomerAcct c, int i) {
-		String sql1 = "update customerAccttbl set acctBalance= acctBalance - " + c.getAcctBalance() + " where id=" + i + "";
-		String sql2 = "update customerAccttbl set acctBalance= acctBalance + " + c.getAcctBalance() + " where id=" + c.getAcctNo() + "";
+	// c1 account transfer to c2 account for amount of money
+	// checking if the balance of c1 is sufficient for the transfer is done in controller
+	public int transfer(CustomerAcct c1, CustomerAcct c2, double amount) {
+		String sql1 = "update customerAcctTbl set acctBalance=" + String.valueOf(c1.getAcctBalance()-amount) + " where acctNo=" + c1.getAcctNo() + "";
+		String sql2 = "update customerAcctTbl set acctBalance=" + String.valueOf(c2.getAcctBalance()+amount) + " where acctNo=" + c2.getAcctNo() + "";
 		int a = template.update(sql1);
 		int b = template.update(sql2);
 		return a + b;
 	}
 	
 	public List<CustomerAcct> getAccounts(Customer c) {
-		return template.query("select * from customerAccttbl where customerId = " + c.getCustomerId(), new RowMapper<CustomerAcct>() {
+		return template.query("select * from customerAcctTbl where customerId = " + c.getCustomerId(), new RowMapper<CustomerAcct>() {
 			public CustomerAcct mapRow(ResultSet rs, int row) throws SQLException {
 				CustomerAcct c = new CustomerAcct();
 				c.setAcctNo(rs.getInt(1));
 				c.setAcctType(rs.getString(2));
 				c.setAcctBalance(rs.getDouble(3));
-				c.setCustomerId(rs.getInt(4));			
+				c.setInterestRate(rs.getDouble(4));
+				c.setCustomerId(rs.getInt(5));			
 				return c;
 			}
 		});

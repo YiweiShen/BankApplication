@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.group2.project.bankApp.bean.Customer;
-import com.group2.project.bankApp.bean.CustomerAcct;
 import com.group2.project.bankApp.bean.Login;
 
 /**
@@ -20,31 +19,35 @@ import com.group2.project.bankApp.bean.Login;
 
 public class CustomerDao {
 	JdbcTemplate template;
+
+	public void setTemplate(JdbcTemplate template) {
+		this.template = template;
+	}
 	
 	public List<Customer> getCustomer(Login l) {
-		return template.query("select * from customertbl where userId = " + l.getUserId(), new RowMapper<Customer>() {
+		return template.query("select * from customerTbl where userId = " + l.getUserId(), new RowMapper<Customer>() {
 			public Customer mapRow(ResultSet rs, int row) throws SQLException {
 				Customer c = new Customer();
-				c.setCustomerId(rs.getInt(0));
-				c.setUserId(rs.getString(1));
-				c.setFirstName(rs.getString(2));
-				c.setLastName(rs.getString(3));
-				c.setAddress(rs.getString(4));
-				c.setState(rs.getString(5));
-				c.setCountry(rs.getString(6));
-				c.setPostalCode(rs.getString(7));			
+				c.setCustomerId(rs.getInt(1));
+				c.setUserId(rs.getString(2));
+				c.setFirstName(rs.getString(3));
+				c.setLastName(rs.getString(4));
+				c.setAddress(rs.getString(5));
+				c.setState(rs.getString(6));
+				c.setCountry(rs.getString(7));
+				c.setPostalCode(rs.getString(8));			
 				return c;
 			}
 		});
 	}
 	
 	public Customer getCustomerById(int id){  
-	    String sql="select * from customertbl where customerId=?";  
+	    String sql="select * from customerTbl where customerId=?";  
 	    return template.queryForObject(sql, new Object[]{id},new BeanPropertyRowMapper<Customer>(Customer.class));  
 	}
 	
-	public int update(Customer c, int id) {
-		String sql = "update customertbl set firstName= '" + c.getFirstName() + ", lastName='" + c.getLastName() + "', address='" + c.getAddress() + "', state= '"
+	public int updateCustomer(Customer c, int id) {
+		String sql = "update customerTbl set firstName= '" + c.getFirstName() + ", lastName='" + c.getLastName() + "', address='" + c.getAddress() + "', state= '"
 				+ c.getState() + "', country= '" + c.getCountry() + "', postalCode= '" + c.getPostalCode() + "' where customerId=" + id + "";
 		return template.update(sql);
 	}

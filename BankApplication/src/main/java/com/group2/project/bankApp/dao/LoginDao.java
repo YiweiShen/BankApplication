@@ -27,14 +27,14 @@ public class LoginDao {
 	}
 
 	public Login getPasswordByUserId(int userId) {
-		String sql = "select * from logintbl where userId=?";
+		String sql = "select * from loginTbl where userId=?";
 		return template.queryForObject(sql, new Object[] { userId }, new BeanPropertyRowMapper<Login>(Login.class));
 	}
 
 	
 	// validate if login/hashedPassword entered are the same in the loginTbl
 	public Login validateUser(Login l) {
-		String sql = "select * from logintbl where userId='" + l.getUserId() + "' and password='"
+		String sql = "select * from loginTbl where userId='" + l.getUserId() + "' and password='"
 				+ hashPassword(l.getPassword())  + "'";
 		List<Login> login = template.query(sql, new UserMapper());
 
@@ -66,8 +66,8 @@ class UserMapper implements RowMapper<Login> {
 	public Login mapRow(ResultSet rs, int arg) throws SQLException {
 		Login login = new Login();
 
-		login.setUserId(rs.getString(0));
-		login.setPassword(rs.getString(1));
+		login.setUserId(rs.getString(1));
+		login.setPassword(rs.getString(2));
 
 		return login;
 	}
