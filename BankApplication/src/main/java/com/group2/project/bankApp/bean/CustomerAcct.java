@@ -43,20 +43,20 @@ public class CustomerAcct {
 		this.acctBalance = acctBalance;
 	}
 
-	public int getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
-
 	public double getInterestRate() {
 		return interestRate;
 	}
 
 	public void setInterestRate(double interestRate) {
 		this.interestRate = interestRate;
+	}
+
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
 
 }
