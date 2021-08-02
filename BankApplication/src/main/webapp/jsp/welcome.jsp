@@ -16,7 +16,7 @@
 		<tr>
 		</tr>
 		<tr>
-			<td><a href="HomePage.jsp">Log Out</a></td><br>
+			<td><a href="HomePage.jsp">Log Out</a></td>
 		</tr>
 	</table>
 </body>
