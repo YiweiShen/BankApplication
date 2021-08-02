@@ -9,6 +9,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.group2.project.bankApp.bean.Login;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * @author Chun Ting Yiu, Xutong Chen, Yiwei Shen
@@ -29,15 +32,33 @@ public class LoginDao {
 	}
 
 	
-	// validate if login/password entered are the same in the loginTbl
+	// validate if login/hashedPassword entered are the same in the loginTbl
 	public Login validateUser(Login l) {
 		String sql = "select * from logintbl where userId='" + l.getUserId() + "' and password='"
-				+ l.getPassword() + "'";
+				+ hashPassword(l.getPassword())  + "'";
 		List<Login> login = template.query(sql, new UserMapper());
 
 		return login.size() > 0 ? login.get(0) : null;
 	}
-
+	
+	// store password as SHA-512 hash
+	// Ref: SHA-512 Hash In Java
+	// https://www.geeksforgeeks.org/sha-512-hash-in-java/
+	
+	public static String hashPassword(String password) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-512");
+			byte[] messageDigest = md.digest(password.getBytes());
+	        BigInteger no = new BigInteger(1, messageDigest);
+	        String hashedPassword = no.toString(16);
+	        while (hashedPassword.length() < 32) {
+	        	hashedPassword = "0" + hashedPassword;
+	        }
+	        return hashedPassword;
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
+    }
 }
 
 class UserMapper implements RowMapper<Login> {
@@ -45,8 +66,8 @@ class UserMapper implements RowMapper<Login> {
 	public Login mapRow(ResultSet rs, int arg) throws SQLException {
 		Login login = new Login();
 
-		login.setUserId(rs.getString("userid"));
-		login.setPassword(rs.getString("password"));
+		login.setUserId(rs.getString(0));
+		login.setPassword(rs.getString(1));
 
 		return login;
 	}
