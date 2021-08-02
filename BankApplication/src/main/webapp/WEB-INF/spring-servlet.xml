@@ -36,4 +36,15 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 		<property name="template" ref="jt"></property>
 	</bean>
 	
+	<bean id="CustomerAcctDao" class="com.group2.project.bankApp.dao.CustomerAcctDao">
+		<property name="template" ref="jt"></property>
+	</bean>
+	
+	<bean id="CustomerDao" class="com.group2.project.bankApp.dao.CustomerDao">
+		<property name="template" ref="jt"></property>
+	</bean>
+	
+	<bean id="CustomerBillDao" class="com.group2.project.bankApp.dao.CustomerBillDao">
+		<property name="template" ref="jt"></property>
+	</bean>
 </beans>
