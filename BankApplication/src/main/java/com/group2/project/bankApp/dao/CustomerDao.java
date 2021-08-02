@@ -22,16 +22,17 @@ public class CustomerDao {
 	JdbcTemplate template;
 	
 	public List<Customer> getCustomer(Login l) {
-		return template.query("select * from customertbl where loginId = " + l.getUserId(), new RowMapper<Customer>() {
+		return template.query("select * from customertbl where userId = " + l.getUserId(), new RowMapper<Customer>() {
 			public Customer mapRow(ResultSet rs, int row) throws SQLException {
 				Customer c = new Customer();
-				c.setCustomerId(rs.getInt(1));
-				c.setUserId(rs.getInt(2));
-				c.setName(rs.getString(2));
-				c.setAddress(rs.getString(2));
-				c.setState(rs.getString(2));
-				c.setCountry(rs.getString(2));
-				c.setPostalCode(rs.getString(2));			
+				c.setCustomerId(rs.getInt(0));
+				c.setUserId(rs.getString(1));
+				c.setFirstName(rs.getString(2));
+				c.setLastName(rs.getString(3));
+				c.setAddress(rs.getString(4));
+				c.setState(rs.getString(5));
+				c.setCountry(rs.getString(6));
+				c.setPostalCode(rs.getString(7));			
 				return c;
 			}
 		});
@@ -42,9 +43,9 @@ public class CustomerDao {
 	    return template.queryForObject(sql, new Object[]{id},new BeanPropertyRowMapper<Customer>(Customer.class));  
 	}
 	
-	public int update(Customer c, int i) {
-		String sql = "update customertbl set name= '" + c.getName() + "', address='" + c.getAddress() + "', state= '"
-				+ c.getState() + "', country= '" + c.getCountry() + "', postalCode= '" + c.getPostalCode() + "' where id=" + i + "";
+	public int update(Customer c, int id) {
+		String sql = "update customertbl set firstName= '" + c.getFirstName() + ", lastName='" + c.getLastName() + "', address='" + c.getAddress() + "', state= '"
+				+ c.getState() + "', country= '" + c.getCountry() + "', postalCode= '" + c.getPostalCode() + "' where customerId=" + id + "";
 		return template.update(sql);
 	}
 
