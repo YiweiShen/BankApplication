@@ -34,7 +34,7 @@ public class CustomerBillController {
 	CustomerDao customerDao;
 	
 	@RequestMapping(value = "/billList", method = RequestMethod.GET)
-	public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView showBillList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("billList");
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("userId") != null) {
@@ -52,14 +52,14 @@ public class CustomerBillController {
 	}
 	
 	@RequestMapping(value = "/payBill", method = RequestMethod.GET)
-	  public ModelAndView showRegister(HttpServletRequest request, HttpServletResponse response) {
+	  public ModelAndView payBill(HttpServletRequest request, HttpServletResponse response) {
 	    ModelAndView mav = new ModelAndView("payBill");
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("userId") != null) {
             String userId = (String) session.getAttribute("userId"); 
     		Customer c = customerDao.getCustomerByUserId(userId);
     		mav.addObject("customerId", c.getCustomerId());
-    	    mav.addObject("bill", new CustomerBill());
+    	    mav.addObject("command", new CustomerBill());
     	    return mav;
         } else {
 			// redirect to HomePage if user try to visit payBill
@@ -71,18 +71,22 @@ public class CustomerBillController {
 	  }
 
 	  @RequestMapping(value = "/paybillProcess", method = RequestMethod.POST)
-	  public ModelAndView addAccount(HttpServletRequest request, HttpServletResponse response,
+	  public ModelAndView paybillProcess(HttpServletRequest request, HttpServletResponse response,
 	      @ModelAttribute("bill") CustomerBill bill) {
+		  	ModelAndView mav;
 	        HttpSession session = request.getSession(false);
 	        if (session != null && session.getAttribute("userId") != null) {
 	        	String userId = (String) session.getAttribute("userId"); 
 				Customer c = customerDao.getCustomerByUserId(userId);
-		    dao.add(bill, c);
-		    return new ModelAndView("Success!", "BillerName", bill.getBillerName());
+				dao.add(bill);
+				mav = new ModelAndView("billList");
+	    		List<CustomerBill> list = dao.getBill(c);
+	    		mav.addObject("list", list);
+				return mav;
 	        } else {
 				// redirect to HomePage if user try to visit paybillProcess
 				// page without successful login 
-	        	ModelAndView mav = new ModelAndView("/../HomePage");
+	        	mav = new ModelAndView("/../HomePage");
 				return mav;
 			}
 
