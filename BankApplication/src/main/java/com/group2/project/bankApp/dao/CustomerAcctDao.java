@@ -41,13 +41,15 @@ public class CustomerAcctDao {
 	    		 c.getCustomerId() });
 	}
 	
+
 	public CustomerAcct getCustomerAccountByAcctNo(int acctNo) {
 		String sql="select * from customerAcctTbl where acctNo=?";  
 	    return template.queryForObject(sql, new Object[]{acctNo},new BeanPropertyRowMapper<CustomerAcct>(CustomerAcct.class));  
 	}
 	
-	public int deposit(int acctNo, double amount) {
-		String sql = "update customerAcctTbl set acctBalance=acctBalance-" + amount + " where acctNo=" + acctNo;
+
+	public int deposit(CustomerAcct c, double amount) {
+		String sql = "update customerAcctTbl set acctBalance=acctBalance+" + amount + " where acctNo=" + c.getAcctNo() + "";
 		return template.update(sql);
 	}
 	
@@ -60,8 +62,8 @@ public class CustomerAcctDao {
 	// c1 account transfer to c2 account for amount of money
 	// checking if the balance of c1 is sufficient for the transfer is done in controller
 	public int transfer(CustomerAcct c1, CustomerAcct c2, double amount) {
-		String sql1 = "update customerAcctTbl set acctBalance=" + String.valueOf(c1.getAcctBalance()-amount) + " where acctNo=" + c1.getAcctNo() + "";
-		String sql2 = "update customerAcctTbl set acctBalance=" + String.valueOf(c2.getAcctBalance()+amount) + " where acctNo=" + c2.getAcctNo() + "";
+		String sql1 = "update customerAcctTbl set acctBalance=acctBalance-" + amount + " where acctNo=" + c1.getAcctNo() + "";
+		String sql2 = "update customerAcctTbl set acctBalance=acctBalance+" + amount + " where acctNo=" + c2.getAcctNo() + "";
 		int a = template.update(sql1);
 		int b = template.update(sql2);
 		return a + b;
