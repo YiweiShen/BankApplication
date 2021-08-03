@@ -23,20 +23,20 @@ public class CustomerBillDao {
 		this.template = template;
 	}
 	
-	public int add(CustomerBill c) {
+	public int add(CustomerBill b, Customer c) {
 	    String sql = "insert into customerAcctTbl values(?,?,?,?)";
-
-	    return template.update(sql, new Object[] { c.getBillerName(), c.getBillerAcctNo(), c.getAmount(), c.getCustomerId() });
+	    return template.update(sql, new Object[] { b.getBillerName(), b.getBillerAcctNo(), b.getAmount(), c.getCustomerId() });
 	}
 	
 	public List<CustomerBill> getBill(Customer c) {
 		return template.query("select * from customerBillTbl where customerId= " + c.getCustomerId(), new RowMapper<CustomerBill>() {
 			public CustomerBill mapRow(ResultSet rs, int row) throws SQLException {
 				CustomerBill b = new CustomerBill();
-				b.setBillerName(rs.getString(1));
-				b.setBillerAcctNo(rs.getInt(2));
-				b.setAmount(rs.getDouble(3));
-				b.setCustomerId(rs.getInt(4));		
+				b.setBillNo(rs.getInt(1));
+				b.setBillerName(rs.getString(2));
+				b.setBillerAcctNo(rs.getInt(3));
+				b.setAmount(rs.getDouble(4));
+				b.setCustomerId(rs.getInt(5));		
 				return b;
 			}
 		});

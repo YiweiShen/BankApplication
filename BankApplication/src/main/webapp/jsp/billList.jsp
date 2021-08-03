@@ -8,6 +8,7 @@
 </head>
 <body>
 	<h1>Bill List</h1>
+	<p>This is a list of bills that you have already paid</p>
 	<table border="2" width="70%" cellpadding="2">
 		<tr>
 			<th>BillerName</th>

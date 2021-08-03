@@ -18,7 +18,7 @@
 			</tr>
 			<tr>
 				<td><form:label path="billerAcctNo">Biller Account Number</form:label></td>
-				<td><form:password path="billerAcctNo" name="billerAcctNo"
+				<td><form:input path="billerAcctNo" name="billerAcctNo"
 						id="billerAcctNo" /></td>
 			</tr>
 			<tr>
@@ -28,7 +28,7 @@
 			</tr>
 			<tr>
 				<td><form:label path="customerId">Customer ID</form:label></td>
-				<td><form:input path="customerId" name="customerId" id="customerId" /></td>
+				<td>${customerId}</td>
 			</tr>
 
 			<tr>
