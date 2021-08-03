@@ -22,7 +22,7 @@ import com.group2.project.bankApp.dao.CustomerBillDao;
  * beans / CustomerBillDao and related views
  * **/
 
-public class CustomterBillController {
+public class CustomerBillController {
 	CustomerBillDao dao;
 	
 	@RequestMapping("/billList")
