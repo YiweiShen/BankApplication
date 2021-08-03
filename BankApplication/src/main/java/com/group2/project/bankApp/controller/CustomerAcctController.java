@@ -23,20 +23,30 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.group2.project.bankApp.bean.Customer;
 import com.group2.project.bankApp.bean.CustomerAcct;
+import com.group2.project.bankApp.bean.Login;
 import com.group2.project.bankApp.dao.CustomerAcctDao;
+import com.group2.project.bankApp.dao.CustomerDao;
+
+import javax.servlet.http.HttpSession;
 
 
-
+@Controller
 public class CustomerAcctController {
 	@Autowired
 	CustomerAcctDao dao;
 	
-	@RequestMapping("/accountlist")
-	public String viewAccountlist(Model m, Customer c) {
+	@Autowired
+	CustomerDao customerDao;
+	
+	@RequestMapping(value = "/accountlist", method = RequestMethod.GET)
+	public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("accountlist");
+        HttpSession session = request.getSession(false);  
+        String userId = (String) session.getAttribute("userId"); 
+		Customer c = customerDao.getCustomerByUserId(userId);
 		List<CustomerAcct> list = dao.getAccounts(c);
-		System.out.print(list);
-		m.addAttribute("list", list);
-		return "accountlist";
+		mav.addObject("list", list);
+		return mav;
 	}
 	
 	@RequestMapping(value = "/deposit/{id}")

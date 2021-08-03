@@ -25,6 +25,7 @@ import com.group2.project.bankApp.bean.Customer;
 import com.group2.project.bankApp.bean.Login;
 import com.group2.project.bankApp.dao.CustomerDao;
 
+@Controller
 public class CustomerController {
 	@Autowired
 	CustomerDao dao;
@@ -56,7 +57,7 @@ public class CustomerController {
 	  public ModelAndView addCustomer(HttpServletRequest request, HttpServletResponse response,
 	      @ModelAttribute("customer") Customer c) {
 
-		  dao.register(c);
+		  dao.updateCustomer(c);
 
 	    return new ModelAndView("welcome", "firstname", c.getFirstName());
 	  }

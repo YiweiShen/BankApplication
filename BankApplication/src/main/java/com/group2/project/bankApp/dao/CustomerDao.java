@@ -24,11 +24,9 @@ public class CustomerDao {
 		this.template = template;
 	}
 	
-	public int register(Customer c) {
-	    String sql = "insert into customerTbl values(?,?,?,?,?,?,?,?)";
-
-	    return template.update(sql, new Object[] { c.getCustomerId(), c.getUserId(), c.getFirstName(), c.getLastName(),
-	    		 c.getAddress(), c.getState(), c.getCountry(), c.getPostalCode() });
+	public int register(Login l) {
+	    String sql = "insert into customerTbl (userId) values(?)";
+	    return template.update(sql, new Object[] { l.getUserId() });
 	}
 	
 	public List<Customer> getCustomer(Login l) {
@@ -53,9 +51,14 @@ public class CustomerDao {
 	    return template.queryForObject(sql, new Object[]{id},new BeanPropertyRowMapper<Customer>(Customer.class));  
 	}
 	
-	public int updateCustomer(Customer c, int id) {
+	public Customer getCustomerByUserId(String id){  
+	    String sql="select * from customerTbl where userId=?";  
+	    return template.queryForObject(sql, new Object[]{id},new BeanPropertyRowMapper<Customer>(Customer.class));  
+	}
+	
+	public int updateCustomer(Customer c) {
 		String sql = "update customerTbl set userId ='" +c.getUserId() + "', firstName= '" + c.getFirstName() + ", lastName='" + c.getLastName() + "', address='" + c.getAddress() + "', state= '"
-				+ c.getState() + "', country= '" + c.getCountry() + "', postalCode= '" + c.getPostalCode() + "' where customerId=" + id + "";
+				+ c.getState() + "', country= '" + c.getCountry() + "', postalCode= '" + c.getPostalCode() + "' where customerId=" + c.getUserId();
 		return template.update(sql);
 	}
 

@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.group2.project.bankApp.bean.Login;
+import com.group2.project.bankApp.dao.CustomerDao;
 import com.group2.project.bankApp.dao.LoginDao;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @author Chun Ting Yiu, Xutong Chen, Yiwei Shen
@@ -24,6 +27,9 @@ import com.group2.project.bankApp.dao.LoginDao;
 public class LoginController {
 	@Autowired
 	LoginDao dao;
+	
+	@Autowired
+	CustomerDao customerDao;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
@@ -42,6 +48,8 @@ public class LoginController {
 		if (null != l) {
 			mav = new ModelAndView("welcome");
 			mav.addObject("userId", l.getUserId());
+	        HttpSession session = request.getSession();  
+	        session.setAttribute("userId", l.getUserId());  
 		} else {
 			mav = new ModelAndView("login");
 			mav.addObject("message", "Username or Password is wrong!!");

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import com.group2.project.bankApp.dao.CustomerBillDao;
  * beans / CustomerBillDao and related views
  * **/
 
+@Controller
 public class CustomerBillController {
 	@Autowired
 	CustomerBillDao dao;
@@ -30,7 +32,6 @@ public class CustomerBillController {
 	@RequestMapping("/billList")
 	public String viewBill(Model m, Customer c) {
 		List<CustomerBill> list = dao.getBill(c);
-		System.out.print(list);
 		m.addAttribute("list", list);
 		return "billList";
 	}

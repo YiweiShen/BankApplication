@@ -7,6 +7,13 @@
 <title>Welcome</title>
 </head>
 <body>
+	<header> <nav>
+	<ul>
+		<li><a href="accountlist">Account List</a></li>
+		<li><a href="editcustomer">Profile</a></li>
+		<li><a href="HomePage.jsp">Log Out</a></li>
+	</ul>
+	</nav> </header>
 	<table>
 		<tr>
 			<td>Welcome ${userId}</td>
@@ -16,7 +23,6 @@
 		<tr>
 		</tr>
 		<tr>
-			<td><a href="HomePage.jsp">Log Out</a></td>
 		</tr>
 	</table>
 </body>
