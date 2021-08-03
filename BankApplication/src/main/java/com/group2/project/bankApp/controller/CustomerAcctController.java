@@ -36,6 +36,7 @@ public class CustomerAcctController {
 	@Autowired
 	CustomerDao customerDao;
 
+	// show all the account of the current customer
 	@RequestMapping(value = "/accountList", method = RequestMethod.GET)
 	public ModelAndView showAccountList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav;
@@ -49,13 +50,14 @@ public class CustomerAcctController {
 			return mav;
 		} else {
 			// redirect to HomePage if user try to visit accountList
-			// page without successful login 
+			// page without successful login
 			mav = new ModelAndView("/../HomePage");
 			return mav;
 		}
 
 	}
 
+	// create a new saving account for the current customer
 	@RequestMapping(value = "/newSavingAccount", method = RequestMethod.GET)
 	public ModelAndView createNewSavingAccount(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("accountList");
@@ -69,12 +71,13 @@ public class CustomerAcctController {
 			return mav;
 		} else {
 			// redirect to HomePage if user try to visit newSavingAccount
-			// page without successful login 
+			// page without successful login
 			mav = new ModelAndView("/../HomePage");
 			return mav;
 		}
 	}
 
+	// create a new checking account for the current customer
 	@RequestMapping(value = "/newCheckingAccount", method = RequestMethod.GET)
 	public ModelAndView createNewCheckingAccount(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("accountList");
@@ -88,64 +91,119 @@ public class CustomerAcctController {
 			return mav;
 		} else {
 			// redirect to HomePage if user try to visit newCheckingAccount
-			// page without successful login 
+			// page without successful login
 			mav = new ModelAndView("/../HomePage");
 			return mav;
 		}
 	}
 
+	// deposit with account id in url
 	@RequestMapping(value = "/deposit/{id}")
-	public String deposit(@PathVariable int id, Model m) {
+	public String depositWithId(@PathVariable int id, Model m) {
 		CustomerAcct account = dao.getCustomerAccountByAcctNo(id);
-//		m.addAttribute("command", account);
+		m.addAttribute("acctNo", account.getAcctNo());
+		m.addAttribute("customerId", account.getCustomerId());
+		m.addAttribute("acctBalance", account.getAcctBalance());
+		m.addAttribute("command", account);
 		return "deposit";
-	}
-	
-	@RequestMapping(value = "/deposit")
-	public String issueBook(Model m) {
-		CustomerAcct account = new CustomerAcct();
-//		m.addAttribute("command", account);
-		return "deposit";
-	}
-	
-	@RequestMapping(value = "/depositProcess", method = RequestMethod.POST)
-	public String issueSave(@ModelAttribute("account") CustomerAcct account) {
-//		dao.deposit(account.getAcctNo(), );
-//		bookDao.issue(request.getBookId());
-		return "redirect:/accountList";
 	}
 
-	@RequestMapping(value = "/draw/{id}")
-	public String draw(@PathVariable int id, Model m) {
+	// deposit without account id in url
+	@RequestMapping(value = "/deposit")
+	public String depositWithoutId(Model m) {
 		CustomerAcct account = new CustomerAcct();
-		account.setAcctNo(id);
 		m.addAttribute("command", account);
-		return "redirect:/accountList";
+		return "deposit";
+	}
+
+	// proceed for deposit including validation of deposit amount
+	@RequestMapping(value = "/depositProcess", method = RequestMethod.POST)
+	public ModelAndView deposit(HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute("account") CustomerAcct account) {
+
+		double amount = account.getAcctBalance();
+		CustomerAcct originalAccount = dao.getCustomerAccountByAcctNo(account.getAcctNo());
+		ModelAndView mav;
+
+		Customer c = customerDao.getCustomerById(originalAccount.getCustomerId());
+
+		// check if the deposit amount > 0
+		if (amount > 0) {
+			dao.deposit(originalAccount, amount);
+			mav = new ModelAndView("accountList");
+			List<CustomerAcct> list = dao.getAccounts(c);
+			mav.addObject("list", list);
+			return mav;
+		} else {
+			mav = new ModelAndView("deposit");
+			CustomerAcct ac = dao.getCustomerAccountByAcctNo(originalAccount.getAcctNo());
+			mav.addObject("command", ac);
+			mav.addObject("customerId", ac.getCustomerId());
+			mav.addObject("acctBalance", ac.getAcctBalance());
+			mav.addObject("acctNo", ac.getAcctNo());
+			mav.addObject("message", "Deposit amount must be greater than zero!!");
+			return mav;
+		}
+
+	}
+
+	// draw with account id in url
+	@RequestMapping(value = "/draw/{id}")
+	public String drawWithId(@PathVariable int id, Model m) {
+		CustomerAcct account = dao.getCustomerAccountByAcctNo(id);
+		m.addAttribute("acctNo", account.getAcctNo());
+		m.addAttribute("customerId", account.getCustomerId());
+		m.addAttribute("acctBalance", account.getAcctBalance());
+		m.addAttribute("command", account);
+		return "draw";
+	}
+
+	// draw without account id in url
+	@RequestMapping(value = "/draw")
+	public String drawWithoutId(Model m) {
+		CustomerAcct account = new CustomerAcct();
+		m.addAttribute("command", account);
+		return "draw";
+	}
+
+	// proceed for draw including validation of draw amount
+	@RequestMapping(value = "/drawProcess", method = RequestMethod.POST)
+	public ModelAndView draw(HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute("account") CustomerAcct account) {
+			
+		double amount = account.getAcctBalance();
+		CustomerAcct originalAccount = dao.getCustomerAccountByAcctNo(account.getAcctNo());
+		ModelAndView mav;
+
+		Customer c = customerDao.getCustomerById(originalAccount.getCustomerId());
+
+		// check if 0 < amount < acctBalance
+		if (amount > 0 && amount <= originalAccount.getAcctBalance()) {
+			dao.draw(originalAccount, amount);
+			mav = new ModelAndView("accountList");
+			List<CustomerAcct> list = dao.getAccounts(c);
+			mav.addObject("list", list);
+			return mav;
+		} else {
+			mav = new ModelAndView("draw");
+			CustomerAcct ac = dao.getCustomerAccountByAcctNo(originalAccount.getAcctNo());
+			mav.addObject("command", ac);
+			mav.addObject("customerId", ac.getCustomerId());
+			mav.addObject("acctBalance", ac.getAcctBalance());
+			mav.addObject("acctNo", ac.getAcctNo());
+			mav.addObject("message", "Draw amount must be between 0 and account balance!!");
+			return mav;
+		}
 	}
 
 	@RequestMapping(value = "/transfer/{id}")
-	public String transfer(@PathVariable int id, Model m) {
+	public String transferWithId(@PathVariable int id, Model m) {
 		CustomerAcct account = new CustomerAcct();
 		account.setAcctNo(id);
 		m.addAttribute("command", account);
 		return "redirect:/accountList";
 	}
 
-	@RequestMapping(value = "/accountRegister", method = RequestMethod.GET)
-	public ModelAndView showRegister(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("accountRegister");
-		mav.addObject("account", new CustomerAcct());
 
-		return mav;
-	}
-
-	@RequestMapping(value = "/accountRegisterProcess", method = RequestMethod.POST)
-	public ModelAndView addAccount(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("account") CustomerAcct c) {
-
-		dao.register(c);
-
-		return new ModelAndView("welcome", "customerId", c.getCustomerId());
-	}
 
 }
