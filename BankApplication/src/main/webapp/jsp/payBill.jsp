@@ -7,6 +7,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Pay Bill</title>
 </head>
+	<header> <nav>
+	<ul>
+		<li><a href="accountList">Account</a></li>
+		<li><a href="billList">Bill</a></li>
+		<li><a href="editCustomer">Profile</a></li>
+		<li><a href="logout">Logout</a></li>
+	</ul>
+	</nav> </header>
 <body>
 	<form:form id="billForm" modelAttribute="bill" action="paybillProcess"
 		method="post">

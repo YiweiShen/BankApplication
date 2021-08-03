@@ -6,6 +6,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Account List</title>
 </head>
+	<header> <nav>
+	<ul>
+		<li><a href="accountList">Account</a></li>
+		<li><a href="billList">Bill</a></li>
+		<li><a href="editCustomer">Profile</a></li>
+		<li><a href="logout">Logout</a></li>
+	</ul>
+	</nav> </header>
 <body>
 	<h1>Account List</h1>
 	<table border="2" width="70%" cellpadding="2">
@@ -33,16 +41,10 @@
 		</c:forEach>
 	</table>
 	<br />
-	<a href="info">Customer Info</a>
+
+	<a href="newSavingAccount">Create a new Saving Account</a>
 	<br />
-	<a href="billList">View Bill</a>
-	<br />
-	<a href="accountRegister">Apply for new account</a>
-	<br />
-	<a href="newSavingAccount">Apply for new Saving account</a>
-	<br />
-	<a href="newCheckingAccount">Apply for new Checking account</a>
-	<br />
-	<a href="logout">Log Out</a>
+	<a href="newCheckingAccount">Create a new Checking Account</a>
+
 </body>
 </html>

@@ -9,14 +9,15 @@
 <body>
 	<header> <nav>
 	<ul>
-		<li><a href="accountList">Account List</a></li>
+		<li><a href="accountList">Account</a></li>
+		<li><a href="billList">Bill</a></li>
 		<li><a href="editCustomer">Profile</a></li>
-		<li><a href="HomePage.jsp">Log Out</a></li>
+		<li><a href="logout">Logout</a></li>
 	</ul>
 	</nav> </header>
 	<table>
 		<tr>
-			<td>Welcome ${userId}</td>
+			<td>Welcome back! ${userId}</td>
 		</tr>
 		<tr>
 		</tr>

@@ -6,6 +6,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Bill List</title>
 </head>
+	<header> <nav>
+	<ul>
+		<li><a href="accountList">Account</a></li>
+		<li><a href="billList">Bill</a></li>
+		<li><a href="editCustomer">Profile</a></li>
+		<li><a href="logout">Logout</a></li>
+	</ul>
+	</nav> </header>
 <body>
 	<h1>Bill List</h1>
 	<p>This is a list of bills that you have already paid</p>
@@ -26,12 +34,8 @@
 		</c:forEach>
 	</table>
 	<br />
-	<a href="payBill">Add Bill</a>
-	<br>
-	<a href="accountList">View Accounts</a>
-	<br>
-	<a href="info">Customer Info</a>
-	<br>
-	<a href="logout">Log Out</a>
+	<a href="payBill">Enter a bill to pay</a>
+	
+
 </body>
 </html>

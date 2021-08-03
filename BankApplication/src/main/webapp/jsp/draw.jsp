@@ -6,35 +6,49 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Draw</title>
 </head>
+	<header> <nav>
+	<ul>
+		<li><a href="accountList">Account</a></li>
+		<li><a href="billList">Bill</a></li>
+		<li><a href="editCustomer">Profile</a></li>
+		<li><a href="logout">Logout</a></li>
+	</ul>
+	</nav> </header>
 <body>
-	<form:form id="drawForm" modelAttribute="draw" action="drawProcess"
-		method="post">
-
+	<form:form method="POST" action="/bankApp/drawProcess">
 		<table align="center">
 			<tr>
-				<td><form:label path="acctBalance">Amount</form:label></td>
-				<td><form:input path="acctBalance" name="acctBalance"
-						id="acctBalance" /></td>
+				<td>Draw Amount :</td>
+				<td><form:input path="acctBalance" /></td>
 			</tr>
 			<tr>
-				<td><form:label path="customerId">Customer ID</form:label></td>
+				<td>Customer ID</td>
 				<td>${customerId}</td>
 			</tr>
 			<tr>
-				<td><form:label path="acctNo">Account No.</form:label></td>
-				<td>${acctNo}</td>
+				<td>Current Balanace</td>
+				<td>${acctBalance}</td>
+			</tr>
+			<tr>
+				<td>Account No.</td>
+				<td><form:hidden path="acctNo" />${acctNo}</td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><form:button id="deposit" name="deposit">Draw</form:button></td>
+				<td><input type="submit" value="Draw" /></td>
 			</tr>
-			<tr></tr>
 			<tr>
 				<td></td>
 				<td><a href="accountList">Back</a></td>
 			</tr>
 		</table>
 	</form:form>
+	
+	<table align="center">
+		<tr>
+			<td style="font-style: italic; color: red;">${message}</td>
+		</tr>
+	</table>
 
 </body>
 </html>
