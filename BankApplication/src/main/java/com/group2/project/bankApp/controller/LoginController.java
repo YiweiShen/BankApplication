@@ -32,9 +32,8 @@ public class LoginController {
 	@Autowired
 	CustomerDao customerDao;
 	
-	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public ModelAndView showWelcome(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("/../HomePage");
 		HttpSession session = request.getSession(false);
 		// this is to clear the session when logout
@@ -80,7 +79,7 @@ public class LoginController {
 	  }
 
 	@RequestMapping(value = "/registerProcess", method = RequestMethod.POST)
-	  public ModelAndView addUser(HttpServletRequest request, HttpServletResponse response,
+	  public ModelAndView registerProcess(HttpServletRequest request, HttpServletResponse response,
 	      @ModelAttribute("user") Login login) {
 
 		ModelAndView mav = null;
@@ -90,6 +89,7 @@ public class LoginController {
 			mav.addObject("message", "This username is taken!! Please choose another one.");
 		} else {
 			dao.register(login);
+			customerDao.register(login);
 			mav = new ModelAndView("welcome");
 			mav.addObject("userId", login.getUserId());
 	        HttpSession session = request.getSession();  
