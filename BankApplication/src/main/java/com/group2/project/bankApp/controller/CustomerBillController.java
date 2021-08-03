@@ -78,9 +78,11 @@ public class CustomerBillController {
 	        if (session != null && session.getAttribute("userId") != null) {
 	        	String userId = (String) session.getAttribute("userId"); 
 				Customer c = customerDao.getCustomerByUserId(userId);
+//				add bill failed somehow
 				dao.add(bill);
 				mav = new ModelAndView("billList");
 	    		List<CustomerBill> list = dao.getBill(c);
+	    		
 	    		mav.addObject("list", list);
 				return mav;
 	        } else {
