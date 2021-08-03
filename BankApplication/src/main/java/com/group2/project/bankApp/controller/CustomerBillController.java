@@ -44,9 +44,9 @@ public class CustomerBillController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/paybill", method = RequestMethod.GET)
+	@RequestMapping(value = "/payBill", method = RequestMethod.GET)
 	  public ModelAndView showRegister(HttpServletRequest request, HttpServletResponse response) {
-	    ModelAndView mav = new ModelAndView("paybill");
+	    ModelAndView mav = new ModelAndView("payBill");
 	    
         HttpSession session = request.getSession(false);  
         String userId = (String) session.getAttribute("userId"); 

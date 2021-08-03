@@ -9,8 +9,8 @@
 <body>
 	<header> <nav>
 	<ul>
-		<li><a href="accountlist">Account List</a></li>
-		<li><a href="editcustomer">Profile</a></li>
+		<li><a href="accountList">Account List</a></li>
+		<li><a href="editCustomer">Profile</a></li>
 		<li><a href="HomePage.jsp">Log Out</a></li>
 	</ul>
 	</nav> </header>

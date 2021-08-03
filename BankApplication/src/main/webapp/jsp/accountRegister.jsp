@@ -42,7 +42,7 @@
 			<tr></tr>
 			<tr>
 				<td></td>
-				<td><a href="accountlist">Back</a></td>
+				<td><a href="accountList">Back</a></td>
 			</tr>
 		</table>
 	</form:form>

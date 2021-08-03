@@ -38,7 +38,7 @@ public class CustomerController {
 		return "info";
 	}
 	
-	@RequestMapping(value = "/editcustomer/{id}")
+	@RequestMapping(value = "/editCustomer/{id}")
 	public String edit(@PathVariable int id, Model m) {
 		Customer customer = dao.getCustomerById(id);
 		m.addAttribute("command", customer);

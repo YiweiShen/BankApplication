@@ -26,12 +26,12 @@
 		</c:forEach>
 	</table>
 	<br />
-	<a href="paybill">Add Bill</a>
+	<a href="payBill">Add Bill</a>
 	<br>
-	<a href="accountlist">View Accounts</a>
+	<a href="accountList">View Accounts</a>
 	<br>
 	<a href="info">Customer Info</a>
 	<br>
-	<a href="HomePage.jsp">Log Out</a>
+	<a href="logout">Log Out</a>
 </body>
 </html>

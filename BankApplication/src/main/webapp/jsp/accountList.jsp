@@ -43,6 +43,6 @@
 	<br />
 	<a href="newCheckingAccount">Apply for new Checking account</a>
 	<br />
-	<a href="HomePage.jsp">Log Out</a>
+	<a href="logout">Log Out</a>
 </body>
 </html>

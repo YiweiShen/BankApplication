@@ -37,9 +37,9 @@ public class CustomerAcctController {
 	@Autowired
 	CustomerDao customerDao;
 	
-	@RequestMapping(value = "/accountlist", method = RequestMethod.GET)
+	@RequestMapping(value = "/accountList", method = RequestMethod.GET)
 	public ModelAndView showAccountList(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("accountlist");
+		ModelAndView mav = new ModelAndView("accountList");
         HttpSession session = request.getSession(false);  
         String userId = (String) session.getAttribute("userId"); 
 		Customer c = customerDao.getCustomerByUserId(userId);
@@ -51,7 +51,7 @@ public class CustomerAcctController {
 	
 	@RequestMapping(value = "/newSavingAccount", method = RequestMethod.GET)
 	public ModelAndView createNewSavingAccount(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("accountlist");
+		ModelAndView mav = new ModelAndView("accountList");
         HttpSession session = request.getSession(false);  
         String userId = (String) session.getAttribute("userId"); 
 		Customer c = customerDao.getCustomerByUserId(userId);
@@ -63,7 +63,7 @@ public class CustomerAcctController {
 	
 	@RequestMapping(value = "/newCheckingAccount", method = RequestMethod.GET)
 	public ModelAndView createNewCheckingAccount(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("accountlist");
+		ModelAndView mav = new ModelAndView("accountList");
         HttpSession session = request.getSession(false);  
         String userId = (String) session.getAttribute("userId"); 
 		Customer c = customerDao.getCustomerByUserId(userId);
@@ -79,7 +79,7 @@ public class CustomerAcctController {
 		CustomerAcct account = new CustomerAcct();
 		account.setAcctNo(id);
 		m.addAttribute("command", account);
-		return "redirect:/accountlist";
+		return "redirect:/accountList";
 	}
 	
 	@RequestMapping(value = "/draw/{id}")
@@ -87,7 +87,7 @@ public class CustomerAcctController {
 		CustomerAcct account = new CustomerAcct();
 		account.setAcctNo(id);
 		m.addAttribute("command", account);
-		return "redirect:/accountlist";
+		return "redirect:/accountList";
 	}
 	
 	@RequestMapping(value = "/transfer/{id}")
@@ -95,7 +95,7 @@ public class CustomerAcctController {
 		CustomerAcct account = new CustomerAcct();
 		account.setAcctNo(id);
 		m.addAttribute("command", account);
-		return "redirect:/accountlist";
+		return "redirect:/accountList";
 	}
 	
 	@RequestMapping(value = "/accountRegister", method = RequestMethod.GET)
