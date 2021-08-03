@@ -23,6 +23,16 @@ public class CustomerAcctDao {
 		this.template = template;
 	}
 	
+	public int cerateSavingAccount(Customer c) {
+	    String sql = "insert into customerAcctTbl (acctType, acctBalance, interestRate, customerId) values('Saving', 0, 0.01,?)";
+	    return template.update(sql, new Object[] { c.getCustomerId() });
+	}
+	
+	public int cerateCheckingAccount(Customer c) {
+	    String sql = "insert into customerAcctTbl (acctType, acctBalance, interestRate, customerId) values('Checking', 0, 0,?)";
+	    return template.update(sql, new Object[] { c.getCustomerId() });
+	}
+	
 	public int register(CustomerAcct c) {
 	    String sql = "insert into customerAcctTbl values(?,?,?,?,?)";
 

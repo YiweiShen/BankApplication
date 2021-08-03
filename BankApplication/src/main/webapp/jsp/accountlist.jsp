@@ -39,6 +39,10 @@
 	<br />
 	<a href="accountRegister">Apply for new account</a>
 	<br />
+	<a href="newSavingAccount">Apply for new Saving account</a>
+	<br />
+	<a href="newCheckingAccount">Apply for new Checking account</a>
+	<br />
 	<a href="HomePage.jsp">Log Out</a>
 </body>
 </html>

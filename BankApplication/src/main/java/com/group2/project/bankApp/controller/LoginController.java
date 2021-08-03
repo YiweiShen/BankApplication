@@ -79,6 +79,8 @@ public class LoginController {
 			dao.register(login);
 			mav = new ModelAndView("welcome");
 			mav.addObject("userId", login.getUserId());
+	        HttpSession session = request.getSession();  
+	        session.setAttribute("userId", login.getUserId()); 
 		}
 		  
 	    return mav;

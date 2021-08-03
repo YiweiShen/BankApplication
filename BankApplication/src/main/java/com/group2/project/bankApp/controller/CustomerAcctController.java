@@ -23,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.group2.project.bankApp.bean.Customer;
 import com.group2.project.bankApp.bean.CustomerAcct;
-import com.group2.project.bankApp.bean.Login;
 import com.group2.project.bankApp.dao.CustomerAcctDao;
 import com.group2.project.bankApp.dao.CustomerDao;
 
@@ -39,7 +38,7 @@ public class CustomerAcctController {
 	CustomerDao customerDao;
 	
 	@RequestMapping(value = "/accountlist", method = RequestMethod.GET)
-	public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView showAccountList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("accountlist");
         HttpSession session = request.getSession(false);  
         String userId = (String) session.getAttribute("userId"); 
@@ -48,6 +47,32 @@ public class CustomerAcctController {
 		mav.addObject("list", list);
 		return mav;
 	}
+	
+	
+	@RequestMapping(value = "/newSavingAccount", method = RequestMethod.GET)
+	public ModelAndView createNewSavingAccount(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("accountlist");
+        HttpSession session = request.getSession(false);  
+        String userId = (String) session.getAttribute("userId"); 
+		Customer c = customerDao.getCustomerByUserId(userId);
+		dao.cerateSavingAccount(c);
+		List<CustomerAcct> list = dao.getAccounts(c);
+		mav.addObject("list", list);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/newCheckingAccount", method = RequestMethod.GET)
+	public ModelAndView createNewCheckingAccount(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("accountlist");
+        HttpSession session = request.getSession(false);  
+        String userId = (String) session.getAttribute("userId"); 
+		Customer c = customerDao.getCustomerByUserId(userId);
+		dao.cerateCheckingAccount(c);
+		List<CustomerAcct> list = dao.getAccounts(c);
+		mav.addObject("list", list);
+		return mav;
+	}
+
 	
 	@RequestMapping(value = "/deposit/{id}")
 	public String deposit(@PathVariable int id, Model m) {
