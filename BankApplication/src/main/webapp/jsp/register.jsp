@@ -13,7 +13,7 @@
 
 		<table align="center">
 			<tr>
-				<td><form:label path="userId">User ID</form:label></td>
+				<td><form:label path="userId">User Name</form:label></td>
 				<td><form:input path="userId" name="userId" id="userId" /></td>
 			</tr>
 			<tr>
@@ -37,6 +37,10 @@
 			</tr>
 		</table>
 	</form:form>
-
+	<table align="center">
+		<tr>
+			<td style="font-style: italic; color: red;">${message}</td>
+		</tr>
+	</table>
 </body>
 </html>

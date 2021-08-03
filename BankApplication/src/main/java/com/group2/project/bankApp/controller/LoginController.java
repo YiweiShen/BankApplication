@@ -60,10 +60,19 @@ public class LoginController {
 
 	@RequestMapping(value = "/registerProcess", method = RequestMethod.POST)
 	  public ModelAndView addUser(HttpServletRequest request, HttpServletResponse response,
-	      @ModelAttribute("user") Login l) {
+	      @ModelAttribute("user") Login login) {
 
-		  dao.register(l);
-
-	    return new ModelAndView("welcome", "UserId", l.getUserId());
+		ModelAndView mav = null;
+		
+		if (dao.checkUserExist(login) != null) {
+			mav = new ModelAndView("register");
+			mav.addObject("message", "This username is taken!! Please choose another one.");
+		} else {
+			dao.register(login);
+			mav = new ModelAndView("welcome");
+			mav.addObject("userId", login.getUserId());
+		}
+		  
+	    return mav;
 	  }
 }

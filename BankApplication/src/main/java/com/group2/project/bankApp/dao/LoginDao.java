@@ -27,15 +27,17 @@ public class LoginDao {
 		this.template = template;
 	}
 
-	public Login getPasswordByUserId(int userId) {
+	public Login getPasswordByUserId(String userId) {
 		String sql = "select * from loginTbl where userId=?";
 		return template.queryForObject(sql, new Object[] { userId }, new BeanPropertyRowMapper<Login>(Login.class));
 	}
 	
+	
+	
 	public int register(Login l) {
 	    String sql = "insert into loginTbl values(?,?)";
 
-	    return template.update(sql, new Object[] { l.getUserId(), l.getPassword() });
+	    return template.update(sql, new Object[] { l.getUserId(), hashPassword(l.getPassword()) });
 	}
 
 	
@@ -45,6 +47,12 @@ public class LoginDao {
 				+ hashPassword(l.getPassword())  + "'";
 		List<Login> login = template.query(sql, new UserMapper());
 
+		return login.size() > 0 ? login.get(0) : null;
+	}
+	
+	public Login checkUserExist(Login l) {
+		String sql = "select * from loginTbl where userId='" + l.getUserId() + "'";
+		List<Login> login = template.query(sql, new UserMapper());
 		return login.size() > 0 ? login.get(0) : null;
 	}
 	
