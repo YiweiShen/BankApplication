@@ -26,6 +26,7 @@ import com.group2.project.bankApp.bean.Login;
 import com.group2.project.bankApp.dao.CustomerDao;
 
 public class CustomerController {
+	@Autowired
 	CustomerDao dao;
 	
 	@RequestMapping("/info")

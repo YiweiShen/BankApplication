@@ -9,10 +9,19 @@ package com.group2.project.bankApp.bean;
 
 public class CustomerBill {
 
+	private int billNo; // bill number
 	private String billerName; // biller's name
 	private int billerAcctNo; // biller's account number
 	private double amount; // the bill amount
 	private int customerId; // customer related to this bill
+
+	public int getBillNo() {
+		return billNo;
+	}
+
+	public void setBillNo(int billNo) {
+		this.billNo = billNo;
+	}
 
 	public String getBillerName() {
 		return billerName;

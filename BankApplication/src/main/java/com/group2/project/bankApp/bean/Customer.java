@@ -11,7 +11,7 @@ package com.group2.project.bankApp.bean;
 
 public class Customer {
 
-	private int customerId; // system generated integer as pk
+	private int customerId; // system auto generated integer as pk
 	private String userId; // user-created string for identity
 	private String firstName; // user's first name
 	private String lastName; // user's last name

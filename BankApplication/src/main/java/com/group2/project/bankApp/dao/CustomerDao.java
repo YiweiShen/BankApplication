@@ -54,7 +54,7 @@ public class CustomerDao {
 	}
 	
 	public int updateCustomer(Customer c, int id) {
-		String sql = "update customerTbl set firstName= '" + c.getFirstName() + ", lastName='" + c.getLastName() + "', address='" + c.getAddress() + "', state= '"
+		String sql = "update customerTbl set userId ='" +c.getUserId() + "', firstName= '" + c.getFirstName() + ", lastName='" + c.getLastName() + "', address='" + c.getAddress() + "', state= '"
 				+ c.getState() + "', country= '" + c.getCountry() + "', postalCode= '" + c.getPostalCode() + "' where customerId=" + id + "";
 		return template.update(sql);
 	}

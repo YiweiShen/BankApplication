@@ -31,13 +31,13 @@ public class CustomerAcctDao {
 	}
 	
 	public int deposit(CustomerAcct c, double amount) {
-		String sql = "update customerAcctTbl set acctBalance=" + String.valueOf(c.getAcctBalance()+amount) + " where acctNo=" + c.getAcctNo() + "";
+		String sql = "update customerAcctTbl set acctBalance=acctBalance-" + amount + " where acctNo=" + c.getAcctNo() + "";
 		return template.update(sql);
 	}
 	
 	// checking if the balance is sufficient for the withdraw is done in controller
 	public int draw(CustomerAcct c, double amount) {
-		String sql = "update customerAcctTbl set acctBalance=" + String.valueOf(c.getAcctBalance()-amount) + " where acctNo=" + c.getAcctNo() + "";
+		String sql = "update customerAcctTbl set acctBalance=acctBalance-" + amount + " where acctNo=" + c.getAcctNo() + "";
 		return template.update(sql);
 	}
 	

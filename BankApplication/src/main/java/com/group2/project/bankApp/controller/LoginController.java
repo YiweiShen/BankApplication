@@ -25,7 +25,6 @@ public class LoginController {
 	@Autowired
 	LoginDao dao;
 	
-	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("login");

@@ -28,6 +28,7 @@ import com.group2.project.bankApp.dao.CustomerAcctDao;
 
 
 public class CustomerAcctController {
+	@Autowired
 	CustomerAcctDao dao;
 	
 	@RequestMapping("/accountlist")

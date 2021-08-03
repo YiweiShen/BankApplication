@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import com.group2.project.bankApp.dao.CustomerBillDao;
  * **/
 
 public class CustomerBillController {
+	@Autowired
 	CustomerBillDao dao;
 	
 	@RequestMapping("/billList")
