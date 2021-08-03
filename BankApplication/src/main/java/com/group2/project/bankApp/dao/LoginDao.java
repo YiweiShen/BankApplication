@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.group2.project.bankApp.bean.Login;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -29,6 +30,12 @@ public class LoginDao {
 	public Login getPasswordByUserId(int userId) {
 		String sql = "select * from loginTbl where userId=?";
 		return template.queryForObject(sql, new Object[] { userId }, new BeanPropertyRowMapper<Login>(Login.class));
+	}
+	
+	public int register(Login l) {
+	    String sql = "insert into loginTbl values(?,?)";
+
+	    return template.update(sql, new Object[] { l.getUserId(), l.getPassword() });
 	}
 
 	

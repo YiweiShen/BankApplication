@@ -23,6 +23,12 @@ public class CustomerBillDao {
 		this.template = template;
 	}
 	
+	public int add(CustomerBill c) {
+	    String sql = "insert into customerAcctTbl values(?,?,?,?)";
+
+	    return template.update(sql, new Object[] { c.getBillerName(), c.getBillerAcctNo(), c.getAmount(), c.getCustomerId() });
+	}
+	
 	public List<CustomerBill> getBill(Customer c) {
 		return template.query("select * from customerBillTbl where customerId= " + c.getCustomerId(), new RowMapper<CustomerBill>() {
 			public CustomerBill mapRow(ResultSet rs, int row) throws SQLException {

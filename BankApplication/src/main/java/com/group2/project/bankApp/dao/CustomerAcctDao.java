@@ -23,6 +23,13 @@ public class CustomerAcctDao {
 		this.template = template;
 	}
 	
+	public int register(CustomerAcct c) {
+	    String sql = "insert into customerAcctTbl values(?,?,?,?,?)";
+
+	    return template.update(sql, new Object[] { c.getAcctNo(), c.getAcctType(), c.getAcctBalance(), c.getInterestRate(),
+	    		 c.getCustomerId() });
+	}
+	
 	public int deposit(CustomerAcct c, double amount) {
 		String sql = "update customerAcctTbl set acctBalance=" + String.valueOf(c.getAcctBalance()+amount) + " where acctNo=" + c.getAcctNo() + "";
 		return template.update(sql);

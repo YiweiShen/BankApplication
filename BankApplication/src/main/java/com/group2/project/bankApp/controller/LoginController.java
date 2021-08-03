@@ -50,4 +50,21 @@ public class LoginController {
 
 		return mav;
 	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	  public ModelAndView showRegister(HttpServletRequest request, HttpServletResponse response) {
+	    ModelAndView mav = new ModelAndView("register");
+	    mav.addObject("user", new Login());
+
+	    return mav;
+	  }
+
+	@RequestMapping(value = "/registerProcess", method = RequestMethod.POST)
+	  public ModelAndView addUser(HttpServletRequest request, HttpServletResponse response,
+	      @ModelAttribute("user") Login l) {
+
+		  dao.register(l);
+
+	    return new ModelAndView("welcome", "UserId", l.getUserId());
+	  }
 }

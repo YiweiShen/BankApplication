@@ -8,6 +8,10 @@ package com.group2.project.bankApp.controller;
  * **/
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.group2.project.bankApp.bean.Customer;
 import com.group2.project.bankApp.bean.CustomerAcct;
@@ -26,7 +31,7 @@ public class CustomerAcctController {
 	CustomerAcctDao dao;
 	
 	@RequestMapping("/accountlist")
-	public String viewBooklist(Model m, Customer c) {
+	public String viewAccountlist(Model m, Customer c) {
 		List<CustomerAcct> list = dao.getAccounts(c);
 		System.out.print(list);
 		m.addAttribute("list", list);
@@ -56,6 +61,23 @@ public class CustomerAcctController {
 		m.addAttribute("command", account);
 		return "redirect:/accountlist";
 	}
+	
+	@RequestMapping(value = "/accountRegister", method = RequestMethod.GET)
+	  public ModelAndView showRegister(HttpServletRequest request, HttpServletResponse response) {
+	    ModelAndView mav = new ModelAndView("accountRegister");
+	    mav.addObject("account", new CustomerAcct());
+
+	    return mav;
+	  }
+
+	  @RequestMapping(value = "/accountRegisterProcess", method = RequestMethod.POST)
+	  public ModelAndView addAccount(HttpServletRequest request, HttpServletResponse response,
+	      @ModelAttribute("account") CustomerAcct c) {
+
+	    dao.register(c);
+
+	    return new ModelAndView("welcome", "customerId", c.getCustomerId());
+	  }
 
 
 }

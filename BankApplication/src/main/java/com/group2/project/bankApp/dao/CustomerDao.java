@@ -24,6 +24,13 @@ public class CustomerDao {
 		this.template = template;
 	}
 	
+	public int register(Customer c) {
+	    String sql = "insert into customerTbl values(?,?,?,?,?,?,?,?)";
+
+	    return template.update(sql, new Object[] { c.getCustomerId(), c.getUserId(), c.getFirstName(), c.getLastName(),
+	    		 c.getAddress(), c.getState(), c.getCountry(), c.getPostalCode() });
+	}
+	
 	public List<Customer> getCustomer(Login l) {
 		return template.query("select * from customerTbl where userId = " + l.getUserId(), new RowMapper<Customer>() {
 			public Customer mapRow(ResultSet rs, int row) throws SQLException {
