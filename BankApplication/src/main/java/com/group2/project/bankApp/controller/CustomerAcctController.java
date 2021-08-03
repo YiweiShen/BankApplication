@@ -28,52 +28,72 @@ import com.group2.project.bankApp.dao.CustomerDao;
 
 import javax.servlet.http.HttpSession;
 
-
 @Controller
 public class CustomerAcctController {
 	@Autowired
 	CustomerAcctDao dao;
-	
+
 	@Autowired
 	CustomerDao customerDao;
-	
+
 	@RequestMapping(value = "/accountList", method = RequestMethod.GET)
 	public ModelAndView showAccountList(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView("accountList");
-        HttpSession session = request.getSession(false);  
-        String userId = (String) session.getAttribute("userId"); 
-		Customer c = customerDao.getCustomerByUserId(userId);
-		List<CustomerAcct> list = dao.getAccounts(c);
-		mav.addObject("list", list);
-		return mav;
+		ModelAndView mav;
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("userId") != null) {
+			String userId = (String) session.getAttribute("userId");
+			Customer c = customerDao.getCustomerByUserId(userId);
+			mav = new ModelAndView("accountList");
+			List<CustomerAcct> list = dao.getAccounts(c);
+			mav.addObject("list", list);
+			return mav;
+		} else {
+			// redirect to HomePage if user try to visit accountList
+			// page without successful login 
+			mav = new ModelAndView("/../HomePage");
+			return mav;
+		}
+
 	}
-	
-	
+
 	@RequestMapping(value = "/newSavingAccount", method = RequestMethod.GET)
 	public ModelAndView createNewSavingAccount(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("accountList");
-        HttpSession session = request.getSession(false);  
-        String userId = (String) session.getAttribute("userId"); 
-		Customer c = customerDao.getCustomerByUserId(userId);
-		dao.cerateSavingAccount(c);
-		List<CustomerAcct> list = dao.getAccounts(c);
-		mav.addObject("list", list);
-		return mav;
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("userId") != null) {
+			String userId = (String) session.getAttribute("userId");
+			Customer c = customerDao.getCustomerByUserId(userId);
+			dao.cerateSavingAccount(c);
+			List<CustomerAcct> list = dao.getAccounts(c);
+			mav.addObject("list", list);
+			return mav;
+		} else {
+			// redirect to HomePage if user try to visit newSavingAccount
+			// page without successful login 
+			mav = new ModelAndView("/../HomePage");
+			return mav;
+		}
 	}
-	
+
 	@RequestMapping(value = "/newCheckingAccount", method = RequestMethod.GET)
 	public ModelAndView createNewCheckingAccount(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("accountList");
-        HttpSession session = request.getSession(false);  
-        String userId = (String) session.getAttribute("userId"); 
-		Customer c = customerDao.getCustomerByUserId(userId);
-		dao.cerateCheckingAccount(c);
-		List<CustomerAcct> list = dao.getAccounts(c);
-		mav.addObject("list", list);
-		return mav;
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("userId") != null) {
+			String userId = (String) session.getAttribute("userId");
+			Customer c = customerDao.getCustomerByUserId(userId);
+			dao.cerateCheckingAccount(c);
+			List<CustomerAcct> list = dao.getAccounts(c);
+			mav.addObject("list", list);
+			return mav;
+		} else {
+			// redirect to HomePage if user try to visit newCheckingAccount
+			// page without successful login 
+			mav = new ModelAndView("/../HomePage");
+			return mav;
+		}
 	}
 
-	
 	@RequestMapping(value = "/deposit/{id}")
 	public String deposit(@PathVariable int id, Model m) {
 		CustomerAcct account = new CustomerAcct();
@@ -81,7 +101,7 @@ public class CustomerAcctController {
 		m.addAttribute("command", account);
 		return "redirect:/accountList";
 	}
-	
+
 	@RequestMapping(value = "/draw/{id}")
 	public String draw(@PathVariable int id, Model m) {
 		CustomerAcct account = new CustomerAcct();
@@ -89,7 +109,7 @@ public class CustomerAcctController {
 		m.addAttribute("command", account);
 		return "redirect:/accountList";
 	}
-	
+
 	@RequestMapping(value = "/transfer/{id}")
 	public String transfer(@PathVariable int id, Model m) {
 		CustomerAcct account = new CustomerAcct();
@@ -97,23 +117,22 @@ public class CustomerAcctController {
 		m.addAttribute("command", account);
 		return "redirect:/accountList";
 	}
-	
+
 	@RequestMapping(value = "/accountRegister", method = RequestMethod.GET)
-	  public ModelAndView showRegister(HttpServletRequest request, HttpServletResponse response) {
-	    ModelAndView mav = new ModelAndView("accountRegister");
-	    mav.addObject("account", new CustomerAcct());
+	public ModelAndView showRegister(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView("accountRegister");
+		mav.addObject("account", new CustomerAcct());
 
-	    return mav;
-	  }
+		return mav;
+	}
 
-	  @RequestMapping(value = "/accountRegisterProcess", method = RequestMethod.POST)
-	  public ModelAndView addAccount(HttpServletRequest request, HttpServletResponse response,
-	      @ModelAttribute("account") CustomerAcct c) {
+	@RequestMapping(value = "/accountRegisterProcess", method = RequestMethod.POST)
+	public ModelAndView addAccount(HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute("account") CustomerAcct c) {
 
-	    dao.register(c);
+		dao.register(c);
 
-	    return new ModelAndView("welcome", "customerId", c.getCustomerId());
-	  }
-
+		return new ModelAndView("welcome", "customerId", c.getCustomerId());
+	}
 
 }
