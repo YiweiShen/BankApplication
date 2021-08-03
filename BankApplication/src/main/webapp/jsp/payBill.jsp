@@ -16,40 +16,41 @@
 	</ul>
 	</nav> </header>
 <body>
-	<form:form id="billForm" modelAttribute="bill" action="paybillProcess"
-		method="post">
 
+<form:form method="POST" action="/bankApp/paybillProcess">
 		<table align="center">
 			<tr>
-				<td><form:label path="billerName">Biller Name</form:label></td>
-				<td><form:input path="billerName" name="billerName" id="billerName" /></td>
+				<td>Customer ID</td>
+				<td><form:hidden path="customerId" />${customerId}</td>
 			</tr>
 			<tr>
-				<td><form:label path="billerAcctNo">Biller Account Number</form:label></td>
-				<td><form:input path="billerAcctNo" name="billerAcctNo"
-						id="billerAcctNo" /></td>
+				<td>Biller Name</td>
+				<td><form:input path="billerName" />${billerName}</td>
 			</tr>
 			<tr>
-				<td><form:label path="amount">Amount</form:label></td>
-				<td><form:input path="amount" name="amount"
-						id="amount" /></td>
+				<td>Biller Account No.</td>
+				<td><form:input path="billerAcctNo" />${billerAcctNo}</td>
 			</tr>
 			<tr>
-				<td><form:label path="customerId">Customer ID</form:label></td>
-				<td>${customerId}</td>
+				<td>Bill Amount</td>
+				<td><form:input path="amount" />${amount}</td>
 			</tr>
-
 			<tr>
 				<td></td>
-				<td><form:button id="paybill" name="paybill">Pay Bill</form:button></td>
+				<td><input type="submit" value="Pay this bill" /></td>
 			</tr>
-			<tr></tr>
 			<tr>
 				<td></td>
 				<td><a href="billList">Back</a></td>
 			</tr>
 		</table>
 	</form:form>
+	
+	<table align="center">
+		<tr>
+			<td style="font-style: italic; color: red;">${message}</td>
+		</tr>
+	</table>
 
 </body>
 </html>

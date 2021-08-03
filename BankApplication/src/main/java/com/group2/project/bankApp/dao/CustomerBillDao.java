@@ -24,8 +24,8 @@ public class CustomerBillDao {
 	}
 	
 	public int add(CustomerBill b) {
-	    String sql = "insert into customerAcctTbl values (?,?,?,?,?)";
-	    return template.update(sql, new Object[] { b.getBillNo(), b.getBillerName(), b.getBillerAcctNo(), b.getAmount(), b.getCustomerId() });
+	    String sql = "insert into customerBillTbl (billerName, billerAcctNo, amount, customerId) values (?,?,?,?)";
+	    return template.update(sql, new Object[] { b.getBillerName(), b.getBillerAcctNo(), b.getAmount(), b.getCustomerId() });
 	}
 	
 	public List<CustomerBill> getBill(Customer c) {
