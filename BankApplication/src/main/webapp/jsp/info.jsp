@@ -18,6 +18,7 @@
 			<th>State</th>
 			<th>Country</th>
 			<th>PostalCode</th>
+			<th>Action</th>
 		</tr>
 		<c:forEach var="customer" items="${list}">
 			<tr>
@@ -37,6 +38,8 @@
 	</table>
 	<br />
 	<a href="accountlist">View Accounts</a>
+	<br />
+	<a href="billList">View Bill</a>
 	<br />
 	<a href="HomePage.jsp">Log Out</a>
 </body>
