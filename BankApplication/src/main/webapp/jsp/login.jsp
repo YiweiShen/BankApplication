@@ -31,6 +31,10 @@
 				<td></td>
 				<td><a href="HomePage.jsp">Home</a></td>
 			</tr>
+			<tr>
+				<td></td>
+				<td><a href="register">register</a></td>
+			</tr>
 		</table>
 	</form:form>
 	<table align="center">

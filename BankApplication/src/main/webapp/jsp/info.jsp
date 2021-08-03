@@ -39,6 +39,8 @@
 	<br />
 	<a href="accountlist">View Accounts</a>
 	<br />
+	<a href="customerRegister">Add new Customer</a>
+	<br />
 	<a href="billList">View Bill</a>
 	<br />
 	<a href="HomePage.jsp">Log Out</a>

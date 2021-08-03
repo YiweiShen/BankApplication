@@ -34,8 +34,10 @@
 	</table>
 	<br />
 	<a href="info">Customer Info</a>
-	<br>
+	<br />
 	<a href="billList">View Bill</a>
+	<br />
+	<a href="accountRegister">Apply for new account</a>
 	<br />
 	<a href="HomePage.jsp">Log Out</a>
 </body>
