@@ -12,17 +12,17 @@
 
 		<table align="center">
 			<tr>
-				<td><form:label path="amount">Amount</form:label></td>
-				<td><form:input path="amount" name="amount"
-						id="amount" /></td>
+				<td><form:label path="acctBalance">Amount</form:label></td>
+				<td><form:input path="acctBalance" name="acctBalance"
+						id="acctBalance" /></td>
 			</tr>
 			<tr>
 				<td><form:label path="customerId">Customer ID</form:label></td>
 				<td>${customerId}</td>
 			</tr>
 			<tr>
-				<td><form:label path="customerId">Account No.</form:label></td>
-				<td>${accountNo}</td>
+				<td><form:label path="acctNo">Account No.</form:label></td>
+				<td>${acctNo}</td>
 			</tr>
 			<tr>
 				<td></td>

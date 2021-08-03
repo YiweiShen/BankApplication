@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -40,14 +41,19 @@ public class CustomerAcctDao {
 	    		 c.getCustomerId() });
 	}
 	
-	public int deposit(CustomerAcct c, double amount) {
-		String sql = "update customerAcctTbl set acctBalance=acctBalance-" + amount + " where acctNo=" + c.getAcctNo() + "";
+	public CustomerAcct getCustomerAccountByAcctNo(int acctNo) {
+		String sql="select * from customerAcctTbl where acctNo=?";  
+	    return template.queryForObject(sql, new Object[]{acctNo},new BeanPropertyRowMapper<CustomerAcct>(CustomerAcct.class));  
+	}
+	
+	public int deposit(int acctNo, double amount) {
+		String sql = "update customerAcctTbl set acctBalance=acctBalance-" + amount + " where acctNo=" + acctNo;
 		return template.update(sql);
 	}
 	
 	// checking if the balance is sufficient for the withdraw is done in controller
-	public int draw(CustomerAcct c, double amount) {
-		String sql = "update customerAcctTbl set acctBalance=acctBalance-" + amount + " where acctNo=" + c.getAcctNo() + "";
+	public int draw(int acctNo, double amount) {
+		String sql = "update customerAcctTbl set acctBalance=acctBalance-" + amount + " where acctNo=" + acctNo;
 		return template.update(sql);
 	}
 	

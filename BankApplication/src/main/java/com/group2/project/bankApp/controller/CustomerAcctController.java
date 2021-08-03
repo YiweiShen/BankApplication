@@ -96,9 +96,22 @@ public class CustomerAcctController {
 
 	@RequestMapping(value = "/deposit/{id}")
 	public String deposit(@PathVariable int id, Model m) {
+		CustomerAcct account = dao.getCustomerAccountByAcctNo(id);
+//		m.addAttribute("command", account);
+		return "deposit";
+	}
+	
+	@RequestMapping(value = "/deposit")
+	public String issueBook(Model m) {
 		CustomerAcct account = new CustomerAcct();
-		account.setAcctNo(id);
-		m.addAttribute("command", account);
+//		m.addAttribute("command", account);
+		return "deposit";
+	}
+	
+	@RequestMapping(value = "/depositProcess", method = RequestMethod.POST)
+	public String issueSave(@ModelAttribute("account") CustomerAcct account) {
+//		dao.deposit(account.getAcctNo(), );
+//		bookDao.issue(request.getBookId());
 		return "redirect:/accountList";
 	}
 
