@@ -34,10 +34,11 @@ public class CustomerBillController {
 
 	@Autowired
 	CustomerDao customerDao;
-	
+
 	@Autowired
 	CustomerAcctDao customerAcctDao;
 
+	// show the list of the paid bills
 	@RequestMapping(value = "/billList", method = RequestMethod.GET)
 	public ModelAndView showBillList(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("billList");
@@ -56,7 +57,7 @@ public class CustomerBillController {
 		}
 	}
 
-
+	// enter a bill to pay
 	@RequestMapping(value = "/payBill", method = RequestMethod.GET)
 	public ModelAndView payBill(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("payBill");
@@ -75,34 +76,40 @@ public class CustomerBillController {
 			mav = new ModelAndView("/../HomePage");
 			return mav;
 		}
-
 	}
 
+	// proceed to pay the bill
 	@RequestMapping(value = "/paybillProcess", method = RequestMethod.POST)
 	public ModelAndView paybillProcess(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("bill") CustomerBill bill) {
-		
-		int paymentAccount = Integer.valueOf(request.getParameter("paymentAccount"));
+
+		int paymentAcctNo = Integer.valueOf(request.getParameter("paymentAcctNo"));
 		ModelAndView mav = new ModelAndView("billList");
-		Customer c= customerDao.getCustomerById(bill.getCustomerId());
+		Customer c = customerDao.getCustomerById(bill.getCustomerId());
 		List<CustomerAcct> accountList = customerAcctDao.getAccounts(c);
-		boolean flag = false;
-		for (int i=0; i<accountList.size();i++) {
-			if (accountList.get(i).getAcctNo() == paymentAccount) {
-				flag = true;
-			}
-		}
-		if (flag == true) {
-			CustomerAcct ac = customerAcctDao.getCustomerAccountByAcctNo(paymentAccount);
-			if (ac.getAcctBalance() < bill.getAmount()) {
-				flag = false;
-			}
-		}
+		boolean isCustomerAccount = false;
+		boolean isFundingSufficient = false;
 		
-		if (flag == true) {
-			CustomerAcct ac = customerAcctDao.getCustomerAccountByAcctNo(paymentAccount);
+		// check if the payment account number belongs to the current customer
+		for (int i = 0; i < accountList.size(); i++) {
+			if (accountList.get(i).getAcctNo() == paymentAcctNo) {
+				isCustomerAccount = true;
+				break;
+			}
+		}
+		// if the account belongs to customer, then check if its funding is sufficient
+		if (isCustomerAccount) {
+			CustomerAcct paymentAcct = customerAcctDao.getCustomerAccountByAcctNo(paymentAcctNo);
+			if (paymentAcct.getAcctBalance() >= bill.getAmount()) {
+				isFundingSufficient = true;
+			}
+		}
+
+		// proceed based on the check results
+		if (isCustomerAccount && isFundingSufficient) {
+			CustomerAcct paymentAcct = customerAcctDao.getCustomerAccountByAcctNo(paymentAcctNo);
 			dao.add(bill);
-			customerAcctDao.draw(ac, bill.getAmount());
+			customerAcctDao.draw(paymentAcct, bill.getAmount());
 			List<CustomerBill> list = dao.getBill(c);
 			mav.addObject("list", list);
 			return mav;
@@ -113,10 +120,8 @@ public class CustomerBillController {
 			billNew.setCustomerId(c.getCustomerId());
 			mav.addObject("customerId", acc.getCustomerId());
 			mav.addObject("command", billNew);
-			mav.addObject("message", "Payment Account Error!!");
+			mav.addObject("message", "Payment Account Error!! Please double check.");
 			return mav;
 		}
-
 	}
-
 }

@@ -22,24 +22,26 @@ public class CustomerBillDao {
 	public void setTemplate(JdbcTemplate template) {
 		this.template = template;
 	}
-	
+
 	public int add(CustomerBill b) {
-	    String sql = "insert into customerBillTbl (billerName, billerAcctNo, amount, customerId) values (?,?,?,?)";
-	    return template.update(sql, new Object[] { b.getBillerName(), b.getBillerAcctNo(), b.getAmount(), b.getCustomerId() });
+		String sql = "insert into customerBillTbl (billerName, billerAcctNo, amount, customerId) values (?,?,?,?)";
+		return template.update(sql,
+				new Object[] { b.getBillerName(), b.getBillerAcctNo(), b.getAmount(), b.getCustomerId() });
 	}
-	
+
 	public List<CustomerBill> getBill(Customer c) {
-		return template.query("select * from customerBillTbl where customerId= " + c.getCustomerId(), new RowMapper<CustomerBill>() {
-			public CustomerBill mapRow(ResultSet rs, int row) throws SQLException {
-				CustomerBill b = new CustomerBill();
-				b.setBillNo(rs.getInt(1));
-				b.setBillerName(rs.getString(2));
-				b.setBillerAcctNo(rs.getInt(3));
-				b.setAmount(rs.getDouble(4));
-				b.setCustomerId(rs.getInt(5));		
-				return b;
-			}
-		});
+		return template.query("select * from customerBillTbl where customerId= " + c.getCustomerId(),
+				new RowMapper<CustomerBill>() {
+					public CustomerBill mapRow(ResultSet rs, int row) throws SQLException {
+						CustomerBill b = new CustomerBill();
+						b.setBillNo(rs.getInt(1));
+						b.setBillerName(rs.getString(2));
+						b.setBillerAcctNo(rs.getInt(3));
+						b.setAmount(rs.getDouble(4));
+						b.setCustomerId(rs.getInt(5));
+						return b;
+					}
+				});
 	}
 
 }
