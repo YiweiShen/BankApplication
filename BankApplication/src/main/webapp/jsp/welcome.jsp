@@ -18,7 +18,7 @@
 	</nav> </header>
 	<table>
 		<tr>
-			<td>Welcome ${userId}!</td>
+			<td>Welcome ${userId}!</td> 
 		</tr>
 		<tr>
 			<td>Welcome to JAM Personal Banking</td>
