@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <title>Welcome</title>
 </head>
 <body>
@@ -12,8 +13,8 @@
 	<br />
 	<table align="center">
 		<tr>
-			<td><a href="login">Login</a></td>
-			<td><a href="register">Register</a></td>
+			<td><a class="btn btn-primary" href="login">Login</a></td>
+			<td><a class="btn btn-success"href="register">Register</a></td>
 		</tr>
 	</table>
 	<footer>

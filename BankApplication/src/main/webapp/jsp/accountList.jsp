@@ -4,14 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <title>Account List</title>
 </head>
 	<header><nav>
 	<ul>
-		<li><a href="/bankApp/accountList">Account</a></li>
-		<li><a href="/bankApp/billList">Bill</a></li>
-		<li><a href="/bankApp/editCustomer">Profile</a></li>
-		<li><a href="/bankApp/logout">Logout</a></li>
+		<li><a class="btn btn-warning" href="/bankApp/accountList">Account</a></li>
+		<li><a class="btn btn-warning" href="/bankApp/billList">Bill</a></li>
+		<li><a class="btn btn-warning" href="/bankApp/editCustomer">Profile</a></li>
+		<li><a class="btn btn-warning" href="/bankApp/logout">Logout</a></li>
 	</ul>
 	</nav> </header>
 <body>
@@ -33,9 +34,9 @@
 				<td>${account.interestRate}</td>
 				<td>${account.customerId}</td>
 				<td>
-					<a href="deposit/${account.acctNo}">Deposit</a> 
-					<a href="draw/${account.acctNo}">Draw</a>
-					<a href="transfer/${account.acctNo}">Transfer</a>
+					<a class="btn btn-info" href="deposit/${account.acctNo}">Deposit</a> 
+					<a class="btn btn-info" href="draw/${account.acctNo}">Draw</a>
+					<a class="btn btn-info" href="transfer/${account.acctNo}">Transfer</a>
 				</td>
 			</tr>
 		</c:forEach>
@@ -43,9 +44,9 @@
 	<br />
 	<h3>No annual fee for new accounts</h3>
 
-	<a href="/bankApp/newSavingAccount">Create a new Saving Account</a>
+	<a class="btn btn-success" href="/bankApp/newSavingAccount">Create a new Saving Account</a>
 	<br />
-	<a href="/bankApp/newCheckingAccount">Create a new Checking Account</a>
+	<a class="btn btn-success" href="/bankApp/newCheckingAccount">Create a new Checking Account</a>
 
 </body>
 </html>

@@ -4,14 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <title>Edit Profile</title>
 </head>
 	<header> <nav>
 	<ul>
-		<li><a href="/bankApp/accountList">Account</a></li>
-		<li><a href="/bankApp/billList">Bill</a></li>
-		<li><a href="/bankApp/editCustomer">Profile</a></li>
-		<li><a href="/bankApp/logout">Logout</a></li>
+		<li><a class="btn btn-warning" href="/bankApp/accountList">Account</a></li>
+		<li><a class="btn btn-warning" href="/bankApp/billList">Bill</a></li>
+		<li><a class="btn btn-warning" href="/bankApp/editCustomer">Profile</a></li>
+		<li><a class="btn btn-warning" href="/bankApp/logout">Logout</a></li>
 	</ul>
 	</nav> </header>
 <body>
@@ -52,11 +53,11 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><input type="submit" value="Update Profile" /></td>
+				<td><input class="btn btn-success" type="submit" value="Update Profile" /></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><a href="/bankApp/accountList">Back</a></td>
+				<td><a class="btn btn-secondary" href="/bankApp/accountList">Back</a></td>
 			</tr>
 		</table>
 	</form:form>

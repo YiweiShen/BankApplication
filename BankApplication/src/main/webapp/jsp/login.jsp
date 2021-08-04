@@ -4,10 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
 <title>Login</title>
 </head>
 <body>
-
+	<h1 align="center">JAM bank</h1>
+	<h3 align="center">LOGIN</h3>
+	<br />
 	<form:form id="loginForm" modelAttribute="login" action="loginProcess"
 		method="post">
 		<table align="center">
@@ -22,17 +29,14 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td align="left"><form:button id="login" name="login">Login</form:button></td>
+				<td align="left"><form:button class="btn btn-primary"
+						id="login" name="login">Login</form:button></td>
 			</tr>
 
 			<tr></tr>
 			<tr>
 				<td></td>
-				<td><a href="/bankApp/logout">Home</a></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><a href="/bankApp/register">Register</a></td>
+				<td><a class="btn btn-secondary" href="/bankApp/logout">Back</a></td>
 			</tr>
 		</table>
 	</form:form>
