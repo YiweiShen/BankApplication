@@ -15,7 +15,7 @@ public class Login {
 	@NotNull(message = "required")
 	private String userId;
 	@NotNull(message = "required")
-	private String password;   // SHA-512 Hash of original password
+	private String password; // SHA-512 Hash of original password
 
 	public String getUserId() {
 		return userId;

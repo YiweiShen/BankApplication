@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -27,53 +26,45 @@ public class LoginDao {
 		this.template = template;
 	}
 
-	public Login getPasswordByUserId(String userId) {
-		String sql = "select * from loginTbl where userId=?";
-		return template.queryForObject(sql, new Object[] { userId }, new BeanPropertyRowMapper<Login>(Login.class));
-	}
-	
-	
-	
 	public int register(Login l) {
-	    String sql = "insert into loginTbl values(?,?)";
+		String sql = "insert into loginTbl values(?,?)";
 
-	    return template.update(sql, new Object[] { l.getUserId(), hashPassword(l.getPassword()) });
+		return template.update(sql, new Object[] { l.getUserId(), hashPassword(l.getPassword()) });
 	}
 
-	
 	// validate if login/hashedPassword entered are the same in the loginTbl
 	public Login validateUser(Login l) {
 		String sql = "select * from loginTbl where userId='" + l.getUserId() + "' and password='"
-				+ hashPassword(l.getPassword())  + "'";
+				+ hashPassword(l.getPassword()) + "'";
 		List<Login> login = template.query(sql, new UserMapper());
 
 		return login.size() > 0 ? login.get(0) : null;
 	}
-	
+
 	public Login checkUserExist(Login l) {
 		String sql = "select * from loginTbl where userId='" + l.getUserId() + "'";
 		List<Login> login = template.query(sql, new UserMapper());
 		return login.size() > 0 ? login.get(0) : null;
 	}
-	
+
 	// store password as SHA-512 hash
 	// Ref: SHA-512 Hash In Java
 	// https://www.geeksforgeeks.org/sha-512-hash-in-java/
-	
+
 	public static String hashPassword(String password) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-512");
 			byte[] messageDigest = md.digest(password.getBytes());
-	        BigInteger no = new BigInteger(1, messageDigest);
-	        String hashedPassword = no.toString(16);
-	        while (hashedPassword.length() < 32) {
-	        	hashedPassword = "0" + hashedPassword;
-	        }
-	        return hashedPassword;
+			BigInteger no = new BigInteger(1, messageDigest);
+			String hashedPassword = no.toString(16);
+			while (hashedPassword.length() < 32) {
+				hashedPassword = "0" + hashedPassword;
+			}
+			return hashedPassword;
 		} catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
 		}
-    }
+	}
 }
 
 class UserMapper implements RowMapper<Login> {
