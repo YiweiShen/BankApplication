@@ -7,7 +7,6 @@ package com.group2.project.bankApp.controller;
  * beans / CustomerDao and related views
  * **/
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,22 +25,21 @@ import com.group2.project.bankApp.dao.CustomerDao;
 public class CustomerController {
 	@Autowired
 	CustomerDao dao;
-	
-	
+
 	@RequestMapping(value = "/editCustomer", method = RequestMethod.GET)
 	public ModelAndView editCustomer(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("editCustomer");
-        HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("userId") != null) {
-        	String userId = (String) session.getAttribute("userId"); 
-    		Customer c = dao.getCustomerByUserId(userId);
-    		mav.addObject("command", c);
-    		mav.addObject("customerId", c.getCustomerId());
-    		mav.addObject("userId", c.getUserId());
-    		return mav;
-        }  else {
+		HttpSession session = request.getSession(false);
+		if (session != null && session.getAttribute("userId") != null) {
+			String userId = (String) session.getAttribute("userId");
+			Customer c = dao.getCustomerByUserId(userId);
+			mav.addObject("command", c);
+			mav.addObject("customerId", c.getCustomerId());
+			mav.addObject("userId", c.getUserId());
+			return mav;
+		} else {
 			// redirect to HomePage if user try to visit billList
-			// page without successful login 
+			// page without successful login
 			mav = new ModelAndView("/../HomePage");
 			return mav;
 		}
@@ -49,7 +47,7 @@ public class CustomerController {
 
 	// proceed for editing customer profile
 	@RequestMapping(value = "/editCustomerProcess", method = RequestMethod.POST)
-	public ModelAndView deposit(HttpServletRequest request, HttpServletResponse response,
+	public ModelAndView editCustomerProcess(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("customer") Customer c) {
 
 		ModelAndView mav = new ModelAndView("editCustomer");
@@ -57,7 +55,6 @@ public class CustomerController {
 		mav.addObject("command", c);
 		mav.addObject("customerId", c.getCustomerId());
 		mav.addObject("userId", c.getUserId());
-
 		return mav;
 
 	}

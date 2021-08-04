@@ -23,12 +23,12 @@ public class CustomerDao {
 	public void setTemplate(JdbcTemplate template) {
 		this.template = template;
 	}
-	
+
 	public int register(Login l) {
-	    String sql = "insert into customerTbl (userId) values(?)";
-	    return template.update(sql, new Object[] { l.getUserId() });
+		String sql = "insert into customerTbl (userId) values(?)";
+		return template.update(sql, new Object[] { l.getUserId() });
 	}
-	
+
 	public List<Customer> getCustomer(Login l) {
 		return template.query("select * from customerTbl where userId = " + l.getUserId(), new RowMapper<Customer>() {
 			public Customer mapRow(ResultSet rs, int row) throws SQLException {
@@ -40,25 +40,27 @@ public class CustomerDao {
 				c.setAddress(rs.getString(5));
 				c.setState(rs.getString(6));
 				c.setCountry(rs.getString(7));
-				c.setPostalCode(rs.getString(8));			
+				c.setPostalCode(rs.getString(8));
 				return c;
 			}
 		});
 	}
-	
-	public Customer getCustomerById(int id){  
-	    String sql="select * from customerTbl where customerId=?";  
-	    return template.queryForObject(sql, new Object[]{id},new BeanPropertyRowMapper<Customer>(Customer.class));  
+
+	public Customer getCustomerById(int id) {
+		String sql = "select * from customerTbl where customerId=?";
+		return template.queryForObject(sql, new Object[] { id }, new BeanPropertyRowMapper<Customer>(Customer.class));
 	}
-	
-	public Customer getCustomerByUserId(String id){  
-	    String sql="select * from customerTbl where userId=?";  
-	    return template.queryForObject(sql, new Object[]{id},new BeanPropertyRowMapper<Customer>(Customer.class));  
+
+	public Customer getCustomerByUserId(String id) {
+		String sql = "select * from customerTbl where userId=?";
+		return template.queryForObject(sql, new Object[] { id }, new BeanPropertyRowMapper<Customer>(Customer.class));
 	}
-	
+
 	public int updateCustomer(Customer c) {
-		String sql = "update customerTbl set userId ='" +c.getUserId() + "', firstName= '" + c.getFirstName() + "', lastName='" + c.getLastName() + "', address='" + c.getAddress() + "', state= '"
-				+ c.getState() + "', country= '" + c.getCountry() + "', postalCode= '" + c.getPostalCode() + "' where customerId=" + c.getCustomerId();
+		String sql = "update customerTbl set userId ='" + c.getUserId() + "', firstName= '" + c.getFirstName()
+				+ "', lastName='" + c.getLastName() + "', address='" + c.getAddress() + "', state= '" + c.getState()
+				+ "', country= '" + c.getCountry() + "', postalCode= '" + c.getPostalCode() + "' where customerId="
+				+ c.getCustomerId();
 		return template.update(sql);
 	}
 
