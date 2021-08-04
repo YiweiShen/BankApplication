@@ -54,7 +54,6 @@ public class CustomerAcctController {
 			mav = new ModelAndView("/../HomePage");
 			return mav;
 		}
-
 	}
 
 	// create a new saving account for the current customer
@@ -109,10 +108,12 @@ public class CustomerAcctController {
 	}
 
 	// deposit without account id in url
+	// a warning will show up because no account is chosen
 	@RequestMapping(value = "/deposit")
 	public String depositWithoutId(Model m) {
 		CustomerAcct account = new CustomerAcct();
 		m.addAttribute("command", account);
+		m.addAttribute("message", "Please go back and choose an account first!!");
 		return "deposit";
 	}
 
@@ -121,30 +122,28 @@ public class CustomerAcctController {
 	public ModelAndView deposit(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("account") CustomerAcct account) {
 
-		double amount = account.getAcctBalance();
+		double depositAmount = Double.valueOf(request.getParameter("depositAmount"));
 		CustomerAcct originalAccount = dao.getCustomerAccountByAcctNo(account.getAcctNo());
 		ModelAndView mav;
 
 		Customer c = customerDao.getCustomerById(originalAccount.getCustomerId());
 
 		// check if the deposit amount > 0
-		if (amount > 0) {
-			dao.deposit(originalAccount, amount);
+		if (depositAmount > 0) {
+			dao.deposit(originalAccount, depositAmount);
 			mav = new ModelAndView("accountList");
 			List<CustomerAcct> list = dao.getAccounts(c);
 			mav.addObject("list", list);
 			return mav;
 		} else {
 			mav = new ModelAndView("deposit");
-			CustomerAcct ac = dao.getCustomerAccountByAcctNo(originalAccount.getAcctNo());
-			mav.addObject("command", ac);
-			mav.addObject("customerId", ac.getCustomerId());
-			mav.addObject("acctBalance", ac.getAcctBalance());
-			mav.addObject("acctNo", ac.getAcctNo());
+			mav.addObject("command", originalAccount);
+			mav.addObject("customerId", originalAccount.getCustomerId());
+			mav.addObject("acctBalance", originalAccount.getAcctBalance());
+			mav.addObject("acctNo", originalAccount.getAcctNo());
 			mav.addObject("message", "Deposit amount must be greater than zero!!");
 			return mav;
 		}
-
 	}
 
 	// draw with account id in url
@@ -159,10 +158,12 @@ public class CustomerAcctController {
 	}
 
 	// draw without account id in url
+	// a warning will show up because no account is chosen
 	@RequestMapping(value = "/draw")
 	public String drawWithoutId(Model m) {
 		CustomerAcct account = new CustomerAcct();
 		m.addAttribute("command", account);
+		m.addAttribute("message", "Please go back and choose an account first!!");
 		return "draw";
 	}
 
@@ -170,40 +171,85 @@ public class CustomerAcctController {
 	@RequestMapping(value = "/drawProcess", method = RequestMethod.POST)
 	public ModelAndView draw(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("account") CustomerAcct account) {
-			
-		double amount = account.getAcctBalance();
+
+		double drawAmount = Double.valueOf(request.getParameter("drawAmount"));
 		CustomerAcct originalAccount = dao.getCustomerAccountByAcctNo(account.getAcctNo());
 		ModelAndView mav;
 
 		Customer c = customerDao.getCustomerById(originalAccount.getCustomerId());
 
 		// check if 0 < amount < acctBalance
-		if (amount > 0 && amount <= originalAccount.getAcctBalance()) {
-			dao.draw(originalAccount, amount);
+		if (drawAmount > 0 && drawAmount <= originalAccount.getAcctBalance()) {
+			dao.draw(originalAccount, drawAmount);
 			mav = new ModelAndView("accountList");
 			List<CustomerAcct> list = dao.getAccounts(c);
 			mav.addObject("list", list);
 			return mav;
 		} else {
 			mav = new ModelAndView("draw");
-			CustomerAcct ac = dao.getCustomerAccountByAcctNo(originalAccount.getAcctNo());
-			mav.addObject("command", ac);
-			mav.addObject("customerId", ac.getCustomerId());
-			mav.addObject("acctBalance", ac.getAcctBalance());
-			mav.addObject("acctNo", ac.getAcctNo());
+			mav.addObject("command", originalAccount);
+			mav.addObject("customerId", originalAccount.getCustomerId());
+			mav.addObject("acctBalance", originalAccount.getAcctBalance());
+			mav.addObject("acctNo", originalAccount.getAcctNo());
 			mav.addObject("message", "Draw amount must be between 0 and account balance!!");
 			return mav;
 		}
 	}
 
+	// transfer with account id (transfer from) in url
 	@RequestMapping(value = "/transfer/{id}")
 	public String transferWithId(@PathVariable int id, Model m) {
-		CustomerAcct account = new CustomerAcct();
-		account.setAcctNo(id);
+		CustomerAcct account = dao.getCustomerAccountByAcctNo(id);
+		m.addAttribute("acctNo", account.getAcctNo());
+		m.addAttribute("customerId", account.getCustomerId());
+		m.addAttribute("acctBalance", account.getAcctBalance());
 		m.addAttribute("command", account);
-		return "redirect:/accountList";
+		return "transfer";
 	}
 
+	// transfer without account id in url
+	// a warning will show up because no account is chosen
+	@RequestMapping(value = "/transfer")
+	public String transferWithoutId(Model m) {
+		CustomerAcct account = new CustomerAcct();
+		m.addAttribute("command", account);
+		m.addAttribute("message", "Please go back and choose an account first!!");
+		return "transfer";
+	}
+	
+	// proceed for transfer including validation of transfer amount
+	@RequestMapping(value = "/transferProcess", method = RequestMethod.POST)
+	public ModelAndView transferProcess(HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute("account") CustomerAcct account) {
 
+		double transferAmount = Double.valueOf(request.getParameter("transferAmount"));
+		int receivingAcctNo = Integer.valueOf(request.getParameter("receivingAcctNo"));
+		
+		CustomerAcct originalAccount = dao.getCustomerAccountByAcctNo(account.getAcctNo());
+		ModelAndView mav;
+		Customer c = customerDao.getCustomerById(originalAccount.getCustomerId());
 
+		// check if 0 < amount < acctBalance
+		if (transferAmount > 0 && transferAmount <= originalAccount.getAcctBalance()) {
+			dao.draw(originalAccount, transferAmount);
+			// if the receiving account is in the database, its balance will be updated as well
+			if (dao.checkAcctExistbyAcctNo(receivingAcctNo) != null) {
+				CustomerAcct receivingAccount = dao.getCustomerAccountByAcctNo(receivingAcctNo);
+				dao.deposit(receivingAccount, transferAmount);
+			}
+			mav = new ModelAndView("accountList");
+			List<CustomerAcct> list = dao.getAccounts(c);
+			mav.addObject("list", list);
+			return mav;
+		} else {
+			mav = new ModelAndView("transfer");
+			mav.addObject("command", originalAccount);
+			mav.addObject("customerId", originalAccount.getCustomerId());
+			mav.addObject("acctBalance", originalAccount.getAcctBalance());
+			mav.addObject("acctNo", originalAccount.getAcctNo());
+			mav.addObject("message", "Transfer amount must be between 0 and account balance!!");
+			return mav;
+		}
+	}
+	
 }
