@@ -11,7 +11,9 @@
 	crossorigin="anonymous">
 <title>Welcome</title>
 </head>
-<body class="container bg-light">
+<body class="container bg-light d-flex flex-column"
+	style="min-height: 100vh">
+	<main class="flex-fill">
 	<div class="align-center mt-5">
 		<h1 align="center" class="text-primary">Welcome to Use JAM Bank</h1>
 		<h2 align="center">Faster and More Convenient</h2>
@@ -24,13 +26,14 @@
 		</table>
 	</div>
 
+	</main>
 </body>
-	<footer class="footer fixed-bottom mb-5">
-	<div class="container text-center">
-		<span class="text-muted">Contact Number: 123456789</span><br /> <span
-			class="text-muted">Email: bob@jambank.com</span><br /> <span
-			class="text-muted">Address: 5700 Yonge St, North York, ON M2M
-			4K2</span>
-	</div>
-	</footer>
+<footer class="footer mb-5">
+<div class="container text-center">
+	<span class="text-muted">Contact Number: 123456789</span><br /> <span
+		class="text-muted">Email: bob@jambank.com</span><br /> <span
+		class="text-muted">Address: 5700 Yonge St, North York, ON M2M
+		4K2</span>
+</div>
+</footer>
 </html>

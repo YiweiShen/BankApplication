@@ -11,7 +11,9 @@
 	crossorigin="anonymous">
 <title>Login</title>
 </head>
-<body class="container bg-light">
+<body class="container bg-light d-flex flex-column"
+	style="min-height: 100vh">
+	<main class="flex-fill">
 	<h1 align="center" class="mt-5">JAM bank</h1>
 	<h3 align="center">LOGIN</h3>
 	<br />
@@ -20,12 +22,13 @@
 		<table align="center">
 			<tr>
 				<td><form:label path="userId">User Name</form:label></td>
-				<td><form:input path="userId" class="form-control mr-sm-2 m-1" name="userId" id="userId" /></td>
+				<td><form:input path="userId" class="form-control mr-sm-2 m-1"
+						name="userId" id="userId" /></td>
 			</tr>
 			<tr>
 				<td><form:label path="password">Password</form:label></td>
-				<td><form:password path="password" class="form-control mr-sm-2 m-1" name="password"
-						id="password" /></td>
+				<td><form:password path="password"
+						class="form-control mr-sm-2 m-1" name="password" id="password" /></td>
 			</tr>
 			<tr>
 				<td></td>
@@ -46,13 +49,14 @@
 		</tr>
 	</table>
 
+	</main>
 </body>
-	<footer class="footer fixed-bottom mb-5">
-	<div class="container text-center">
-		<span class="text-muted">Contact Number: 123456789</span><br /> <span
-			class="text-muted">Email: bob@jambank.com</span><br /> <span
-			class="text-muted">Address: 5700 Yonge St, North York, ON M2M
-			4K2</span>
-	</div>
-	</footer>
+<footer class="footer mb-5">
+<div class="container text-center">
+	<span class="text-muted">Contact Number: 123456789</span><br /> <span
+		class="text-muted">Email: bob@jambank.com</span><br /> <span
+		class="text-muted">Address: 5700 Yonge St, North York, ON M2M
+		4K2</span>
+</div>
+</footer>
 </html>
