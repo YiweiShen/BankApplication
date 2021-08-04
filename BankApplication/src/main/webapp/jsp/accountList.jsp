@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Account List</title>
 </head>
-	<header> <nav>
+	<header><nav>
 	<ul>
 		<li><a href="/bankApp/accountList">Account</a></li>
 		<li><a href="/bankApp/billList">Bill</a></li>
