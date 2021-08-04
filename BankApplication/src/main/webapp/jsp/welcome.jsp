@@ -9,43 +9,36 @@
 <title>Welcome</title>
 </head>
 <body>
-	<header> <nav>
-	<ul>
-		<li><a class="btn btn-warning" href="/bankApp/accountList">Account</a></li>
-		<li><a class="btn btn-warning" href="/bankApp/billList">Bill</a></li>
-		<li><a class="btn btn-warning" href="/bankApp/editCustomer">Profile</a></li>
-		<li><a class="btn btn-warning" href="/bankApp/logout">Logout</a></li>
-	</ul>
-	</nav> </header>
-	<table>
-		<tr>
-			<td>Welcome ${userId}!</td> 
-		</tr>
-		<tr>
-			<td>Welcome to JAM Personal Banking</td>
-		</tr>
-		<tr>
-		</tr>
-		<tr>
-		</tr>
-	</table>
-	<footer>
-        <table>
-            <tr>
-                <td>Contact Number: 123456789</td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td>Email: bob@gmail.com</td> 
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td>Address: 5700 Yonge St, North York, ON M2M 4K2</td>
-            </tr>
-        </table>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">JAM Bank</a>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/bankApp/accountList">Account</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/bankApp/billList">Bill</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="/bankApp/editCustomer">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/bankApp/logout">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<h1 class="text-warning text-center m-5">Welcome ${userId}!</h1>
+<h2 class="text-warning text-center">Welcome to use JAM Personal Banking.</h2>
 
-    </footer>
+
 </body>
+	<footer class="footer fixed-bottom mb-5">
+	<div class="container text-center">
+		<span class="text-muted">Contact Number: 123456789</span><br /> <span
+			class="text-muted">Email: bob@jambank.com</span><br /> <span
+			class="text-muted">Address: 5700 Yonge St, North York, ON M2M
+			4K2</span>
+	</div>
+	</footer>
 </html>

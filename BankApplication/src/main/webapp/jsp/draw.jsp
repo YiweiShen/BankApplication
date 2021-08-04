@@ -7,40 +7,52 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <title>Draw</title>
 </head>
-	<header> <nav>
-	<ul>
-		<li><a class="btn btn-warning" href="/bankApp/accountList">Account</a></li>
-		<li><a class="btn btn-warning" href="/bankApp/billList">Bill</a></li>
-		<li><a class="btn btn-warning" href="/bankApp/editCustomer">Profile</a></li>
-		<li><a class="btn btn-warning" href="/bankApp/logout">Logout</a></li>
-	</ul>
-	</nav> </header>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">JAM Bank</a>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/bankApp/accountList">Account</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/bankApp/billList">Bill</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="/bankApp/editCustomer">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/bankApp/logout">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 <body>
+<h1 class="m-5 text-center">Draw</h1>
 	<form:form method="POST" action="/bankApp/drawProcess">
 		<table align="center">
 			<tr>
 				<td>Draw Amount</td>
-				<td><input type="text" id="drawAmount" name="drawAmount"/></td>
+				<td><input type="text" class="form-control mr-sm-2" id="drawAmount" name="drawAmount"/></td>
 			</tr>
 			<tr>
 				<td>Customer ID</td>
-				<td><form:hidden path="customerId" />${customerId}</td>
+				<td><form:hidden path="customerId" /><p class="text-center text-primary m-1">${customerId}</p></td>
 			</tr>
 			<tr>
 				<td>Current Balance</td>
-				<td><form:hidden path="acctBalance" />${acctBalance}</td>
+				<td><form:hidden path="acctBalance" /><p class="text-center text-primary m-1">${acctBalance}</p></td>
 			</tr>
 			<tr>
 				<td>Account No.</td>
-				<td><form:hidden path="acctNo" />${acctNo}</td>
+				<td><form:hidden path="acctNo" /><p class="text-center text-primary m-1">${acctNo}</p></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><input class="btn btn-success" type="submit" value="Draw" /></td>
+				<td><input class="btn btn-success mt-3 mb-1" type="submit" value="Draw" /></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><a class="btn btn-secondary" href="/bankApp/accountList">Back</a></td>
+				<td><a class="btn btn-secondary m-1" href="/bankApp/accountList">Back</a></td>
 			</tr>
 		</table>
 	</form:form>
@@ -51,4 +63,12 @@
 	</table>
 
 </body>
+	<footer class="footer fixed-bottom mb-5">
+	<div class="container text-center">
+		<span class="text-muted">Contact Number: 123456789</span><br /> <span
+			class="text-muted">Email: bob@jambank.com</span><br /> <span
+			class="text-muted">Address: 5700 Yonge St, North York, ON M2M
+			4K2</span>
+	</div>
+	</footer>
 </html>

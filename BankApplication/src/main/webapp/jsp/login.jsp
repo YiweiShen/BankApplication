@@ -11,8 +11,8 @@
 	crossorigin="anonymous">
 <title>Login</title>
 </head>
-<body>
-	<h1 align="center">JAM bank</h1>
+<body class="container bg-light">
+	<h1 align="center" class="mt-5">JAM bank</h1>
 	<h3 align="center">LOGIN</h3>
 	<br />
 	<form:form id="loginForm" modelAttribute="login" action="loginProcess"
@@ -20,23 +20,23 @@
 		<table align="center">
 			<tr>
 				<td><form:label path="userId">User Name</form:label></td>
-				<td><form:input path="userId" name="userId" id="userId" /></td>
+				<td><form:input path="userId" class="form-control mr-sm-2 m-1" name="userId" id="userId" /></td>
 			</tr>
 			<tr>
 				<td><form:label path="password">Password</form:label></td>
-				<td><form:password path="password" name="password"
+				<td><form:password path="password" class="form-control mr-sm-2 m-1" name="password"
 						id="password" /></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td align="left"><form:button class="btn btn-primary"
+				<td align="left"><form:button class="btn btn-primary mt-3 mb-1"
 						id="login" name="login">Login</form:button></td>
 			</tr>
 
 			<tr></tr>
 			<tr>
 				<td></td>
-				<td><a class="btn btn-secondary" href="/bankApp/logout">Back</a></td>
+				<td><a class="btn btn-secondary m-1" href="/bankApp/logout">Back</a></td>
 			</tr>
 		</table>
 	</form:form>
@@ -47,4 +47,12 @@
 	</table>
 
 </body>
+	<footer class="footer fixed-bottom mb-5">
+	<div class="container text-center">
+		<span class="text-muted">Contact Number: 123456789</span><br /> <span
+			class="text-muted">Email: bob@jambank.com</span><br /> <span
+			class="text-muted">Address: 5700 Yonge St, North York, ON M2M
+			4K2</span>
+	</div>
+	</footer>
 </html>

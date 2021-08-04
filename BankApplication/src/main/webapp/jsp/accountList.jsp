@@ -7,17 +7,29 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <title>Account List</title>
 </head>
-	<header><nav>
-	<ul>
-		<li><a class="btn btn-warning" href="/bankApp/accountList">Account</a></li>
-		<li><a class="btn btn-warning" href="/bankApp/billList">Bill</a></li>
-		<li><a class="btn btn-warning" href="/bankApp/editCustomer">Profile</a></li>
-		<li><a class="btn btn-warning" href="/bankApp/logout">Logout</a></li>
-	</ul>
-	</nav> </header>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">JAM Bank</a>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/bankApp/accountList">Account</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/bankApp/billList">Bill</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="/bankApp/editCustomer">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/bankApp/logout">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
 <body>
-	<h1>Account List</h1>
-	<table border="2" width="70%" cellpadding="2">
+	<h1 class="mt-5 m-3">Account List</h1>
+	<table class="table table-hover table-bordered m-3">
 		<tr>
 			<th>AcctNo</th>
 			<th>AcctType</th>
@@ -42,11 +54,19 @@
 		</c:forEach>
 	</table>
 	<br />
-	<h3>No annual fee for new accounts</h3>
+	<p class="m-3">No annual fee for new accounts</p>
 
-	<a class="btn btn-success" href="/bankApp/newSavingAccount">Create a new Saving Account</a>
+	<a class="btn btn-success m-2" href="/bankApp/newSavingAccount">Create a new Saving Account</a>
 	<br />
-	<a class="btn btn-success" href="/bankApp/newCheckingAccount">Create a new Checking Account</a>
+	<a class="btn btn-success m-2" href="/bankApp/newCheckingAccount">Create a new Checking Account</a>
 
 </body>
+	<footer class="footer fixed-bottom mb-5">
+	<div class="container text-center">
+		<span class="text-muted">Contact Number: 123456789</span><br /> <span
+			class="text-muted">Email: bob@jambank.com</span><br /> <span
+			class="text-muted">Address: 5700 Yonge St, North York, ON M2M
+			4K2</span>
+	</div>
+	</footer>
 </html>
