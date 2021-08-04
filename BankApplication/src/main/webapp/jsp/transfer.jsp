@@ -8,13 +8,51 @@
 </head>
 	<header> <nav>
 	<ul>
-		<li><a href="accountList">Account</a></li>
-		<li><a href="billList">Bill</a></li>
-		<li><a href="editCustomer">Profile</a></li>
-		<li><a href="logout">Logout</a></li>
+		<li><a href="/bankApp/accountList">Account</a></li>
+		<li><a href="/bankApp/billList">Bill</a></li>
+		<li><a href="/bankApp/editCustomer">Profile</a></li>
+		<li><a href="/bankApp/logout">Logout</a></li>
 	</ul>
 	</nav> </header>
 <body>
+	<form:form method="POST" action="/bankApp/transferProcess">
+		<table align="center">
+			<tr>
+				<td>Customer ID</td>
+				<td><form:hidden path="customerId" />${customerId}</td>
+			</tr>
+			<tr>
+				<td>Current Balance</td>
+				<td><form:hidden path="acctBalance" />${acctBalance}</td>
+			</tr>
+			<tr>
+				<td>Account No. (Transfer From)</td>
+				<td><form:hidden path="acctNo" />${acctNo}</td>
+			</tr>
+			<tr>
+				<td>Transfer Amount</td>
+				<td><input type="text" id="transferAmount" name="transferAmount"/></td>
+			</tr>
+			<tr>
+				<td>Receiving Account No. (Transfer To)</td>
+				<td><input type="text" id="receivingAcctNo" name="receivingAcctNo"/></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Transfer" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><a href="/bankApp/accountList">Back</a></td>
+			</tr>
+		</table>
+	</form:form>
+	
+	<table align="center">
+		<tr>
+			<td style="font-style: italic; color: red;">${message}</td>
+		</tr>
+	</table>
 
 </body>
 </html>

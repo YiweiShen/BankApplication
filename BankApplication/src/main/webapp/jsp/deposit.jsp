@@ -8,26 +8,26 @@
 </head>
 	<header> <nav>
 	<ul>
-		<li><a href="accountList">Account</a></li>
-		<li><a href="billList">Bill</a></li>
-		<li><a href="editCustomer">Profile</a></li>
-		<li><a href="logout">Logout</a></li>
+		<li><a href="/bankApp/accountList">Account</a></li>
+		<li><a href="/bankApp/billList">Bill</a></li>
+		<li><a href="/bankApp/editCustomer">Profile</a></li>
+		<li><a href="/bankApp/logout">Logout</a></li>
 	</ul>
 	</nav> </header>
 <body>
 	<form:form method="POST" action="/bankApp/depositProcess">
 		<table align="center">
 			<tr>
-				<td>Deposit Amount :</td>
-				<td><form:input path="acctBalance" /></td>
+				<td>Deposit Amount</td>
+				<td><input type="text" id="depositAmount" name="depositAmount"/></td>
 			</tr>
 			<tr>
 				<td>Customer ID</td>
-				<td>${customerId}</td>
+				<td><form:hidden path="customerId" />${customerId}</td>
 			</tr>
 			<tr>
-				<td>Current Balanace</td>
-				<td>${acctBalance}</td>
+				<td>Current Balance</td>
+				<td><form:hidden path="acctBalance" />${acctBalance}</td>
 			</tr>
 			<tr>
 				<td>Account No.</td>
@@ -39,7 +39,7 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><a href="accountList">Back</a></td>
+				<td><a href="/bankApp/accountList">Back</a></td>
 			</tr>
 		</table>
 	</form:form>

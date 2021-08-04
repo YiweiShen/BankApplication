@@ -28,11 +28,11 @@
 			<tr></tr>
 			<tr>
 				<td></td>
-				<td><a href="HomePage.jsp">Home</a></td>
+				<td><a href="/bankApp/logout">Home</a></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><a href="login">Back</a></td>
+				<td><a href="/bankApp/login">Back</a></td>
 			</tr>
 		</table>
 	</form:form>

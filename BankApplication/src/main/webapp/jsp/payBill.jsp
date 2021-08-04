@@ -6,14 +6,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Pay Bill</title>
 </head>
-<header> <nav>
-<ul>
-	<li><a href="accountList">Account</a></li>
-	<li><a href="billList">Bill</a></li>
-	<li><a href="editCustomer">Profile</a></li>
-	<li><a href="logout">Logout</a></li>
-</ul>
-</nav> </header>
+	<header> <nav>
+	<ul>
+		<li><a href="/bankApp/accountList">Account</a></li>
+		<li><a href="/bankApp/billList">Bill</a></li>
+		<li><a href="/bankApp/editCustomer">Profile</a></li>
+		<li><a href="/bankApp/logout">Logout</a></li>
+	</ul>
+	</nav> </header>
 <body>
 
 	<form:form method="POST" action="/bankApp/paybillProcess">
@@ -36,7 +36,7 @@
 			</tr>
 			<tr>
 				<td>Payment Account No.</td>
-				<td><input type="text" id="paymentAccount" name="paymentAccount"/></td>
+				<td><input type="text" id="paymentAcctNo" name="paymentAcctNo"/></td>
 			</tr>
 			<tr>
 				<td></td>
@@ -44,7 +44,7 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><a href="billList">Back</a></td>
+				<td><a href="/bankApp/billList">Back</a></td>
 			</tr>
 		</table>
 	</form:form>

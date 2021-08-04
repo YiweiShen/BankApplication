@@ -12,11 +12,11 @@
 		method="post">
 		<table align="center">
 			<tr>
-				<td><form:label path="userId">UserID: </form:label></td>
+				<td><form:label path="userId">User Name</form:label></td>
 				<td><form:input path="userId" name="userId" id="userId" /></td>
 			</tr>
 			<tr>
-				<td><form:label path="password">Password:</form:label></td>
+				<td><form:label path="password">Password</form:label></td>
 				<td><form:password path="password" name="password"
 						id="password" /></td>
 			</tr>
@@ -28,11 +28,11 @@
 			<tr></tr>
 			<tr>
 				<td></td>
-				<td><a href="HomePage.jsp">Home</a></td>
+				<td><a href="/bankApp/logout">Home</a></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><a href="register">register</a></td>
+				<td><a href="/bankApp/register">Register</a></td>
 			</tr>
 		</table>
 	</form:form>
