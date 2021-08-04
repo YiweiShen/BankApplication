@@ -41,6 +41,7 @@
 		</c:forEach>
 	</table>
 	<br />
+	<h3>No annual fee for new accounts</h3>
 
 	<a href="/bankApp/newSavingAccount">Create a new Saving Account</a>
 	<br />

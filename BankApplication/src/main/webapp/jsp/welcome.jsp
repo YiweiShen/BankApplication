@@ -18,14 +18,33 @@
 	</nav> </header>
 	<table>
 		<tr>
-			<td>Welcome back! ${userId}</td>
+			<td>Welcome ${userId}!</td>
 		</tr>
 		<tr>
+			<td>Welcome to JAM Personal Banking</td>
 		</tr>
 		<tr>
 		</tr>
 		<tr>
 		</tr>
 	</table>
+	<footer>
+        <table>
+            <tr>
+                <td>Contact Number: 123456789</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>Email: bob@gmail.com</td> 
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>Address: 5700 Yonge St, North York, ON M2M 4K2</td>
+            </tr>
+        </table>
+
+    </footer>
 </body>
 </html>
