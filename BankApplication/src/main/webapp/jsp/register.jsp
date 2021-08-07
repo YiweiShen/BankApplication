@@ -40,7 +40,7 @@
 			<tr></tr>
 			<tr>
 				<td></td>
-				<td><a class="btn btn-secondary m-1" href="/bankApp/logout">Back</a></td> 
+				<td><a class="btn btn-secondary m-1" href="/bankApp/logout">Back</a></td>
 			</tr>
 		</table>
 	</form:form>
