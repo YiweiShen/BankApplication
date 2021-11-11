@@ -1,6 +1,6 @@
 # Bank Website
 
-Stack: Java, Spring framework, MVC, JDBC, Servlet, MySQL
+Stack: Java, Spring framework, MVC, JDBC, Servlet, MySQL, Bootstrap
 
 ### ERD
 
